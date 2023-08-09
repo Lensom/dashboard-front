@@ -1,40 +1,25 @@
 {
   "compilerOptions": {
-    "baseUrl": ".",
-    "target": "es5",
-    "lib": ["dom", "dom.iterable", "esnext"],
-    "allowJs": true,
-    "skipLibCheck": true,
-    "strict": false,
-    "forceConsistentCasingInFileNames": true,
-    "noEmit": true,
+    "target": "ES6",
+    "module": "ESNext",
+    "lib": ["DOM", "ESNext"],
+    "jsx": "react-jsx",
+    "strict": true,
     "esModuleInterop": true,
-    "module": "esnext",
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "noImplicitReturns": true,
+    "noImplicitThis": true,
+    "strictNullChecks": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "removeComments": true,
+    "baseUrl": "./src",
     "moduleResolution": "node",
-    "resolveJsonModule": true,
-    "isolatedModules": true,
-    "jsx": "preserve",
     "paths": {
-      "components/*": ["src/components/*"],
-      "constant": ["src/constant"],
-      "services": ["src/services"],
-      "utils": ["src/utils"],
-      "HOC/*": ["src/HOC/*"],
-      "images/*": ["src/assets/images/*"],
-      "public/*": ["src/public/*"],
-      "config/*": ["src/config/*"],
-      "styles/*": ["src/styles/*"],
-      "reducer": ["src/reducer"],
-      "hooks/*": ["src/hooks/*"]
-    },
-    "incremental": true
+      "components/*": ["components/*"]
+    }
   },
-  "include": [
-    "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx",
-    "src/features.js",
-    "src/pages/_document.jsx"
-  ],
+  "include": ["src/**/*.ts", "src/**/*.tsx"],
   "exclude": ["node_modules"]
 }
