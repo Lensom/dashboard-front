@@ -20,7 +20,7 @@ interface IProps {
 const Header: FC<IProps> = ({ open, setOpen }) => {
   const handleDrawerOpen = useCallback(() => {
     setOpen(true);
-  }, []);
+  }, [setOpen]);
 
   return (
     <AppBar position="fixed" open={open}>

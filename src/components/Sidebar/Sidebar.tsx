@@ -15,7 +15,7 @@ interface IProps {
 const Sidebar: FC<IProps> = ({ open, setOpen }) => {
   const handleDrawerClose = useCallback(() => {
     setOpen(false);
-  }, []);
+  }, [setOpen]);
 
   return (
     <Drawer variant="permanent" open={open}>

@@ -1,4 +1,6 @@
 import { takeLatest } from 'redux-saga/effects';
+import Cookies from 'js-cookie';
+import { IUserInfo } from './reducer';
 
 import * as API from 'services';
 import { requestMiddleware } from 'utils';
@@ -7,10 +9,15 @@ import { actions } from './reducer';
 interface IMiddleware {
   req: any;
   params: Object;
-  success: () => void;
+  success: any;
   error: () => void;
-  postSuccessEffect?: () => void;
+  postSuccessEffect?: (responseSuccess: IUserInfo) => void;
   token?: string;
+}
+
+function* postSuccessEffect(responseSuccess: IUserInfo) {
+  console.log(responseSuccess);
+  Cookies.set('dashboardAccessToken', responseSuccess.token);
 }
 
 function* userRegistration({ payload }: any) {
@@ -23,11 +30,12 @@ function* userRegistration({ payload }: any) {
     params: payload,
     success,
     error,
+    postSuccessEffect,
   };
 
   yield requestMiddleware(middleware);
 }
 
 export default function* watchSaga() {
-  yield takeLatest(actions.registrationRequest().type, userRegistration);
+  yield takeLatest(actions.registrationRequest.type, userRegistration);
 }

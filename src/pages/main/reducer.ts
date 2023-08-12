@@ -7,8 +7,21 @@ const initialState = {
   user: {
     isAuth: false,
     loading: false,
+    info: {
+      email: '',
+      username: '',
+      _id: '',
+      token: '',
+    },
   },
 };
+
+export interface IUserInfo {
+  email: string;
+  username: string;
+  _id: string;
+  token: string;
+}
 
 export interface IMainReducer {
   modals: {
@@ -17,6 +30,7 @@ export interface IMainReducer {
   user: {
     isAuth: boolean;
     loading: boolean;
+    info: IUserInfo;
   };
 }
 
@@ -34,9 +48,10 @@ const mainSlice = createSlice({
       state.user.isAuth = false;
       state.user.loading = true;
     },
-    registrationSuccess: (state) => {
+    registrationSuccess: (state, { payload }) => {
       state.user.isAuth = true;
       state.user.loading = false;
+      state.user.info = payload;
     },
     registrationError: (state) => {
       state.user.isAuth = false;
