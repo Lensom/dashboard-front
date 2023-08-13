@@ -50,7 +50,24 @@ function* userInformation({ payload }: any) {
   yield requestMiddleware(middleware);
 }
 
+function* userLogin({ payload }: any) {
+  const req = API.userLogin;
+
+  const { loginSuccess: success, loginError: error } = actions;
+
+  const middleware: IMiddleware = {
+    req,
+    params: payload,
+    success,
+    error,
+    postSuccessEffect,
+  };
+
+  yield requestMiddleware(middleware);
+}
+
 export default function* watchSaga() {
   yield takeLatest(actions.registrationRequest.type, userRegistration);
   yield takeLatest(actions.fetchUserInfoRequest.type, userInformation);
+  yield takeLatest(actions.loginRequest.type, userLogin);
 }

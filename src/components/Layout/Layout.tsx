@@ -7,6 +7,7 @@ import Header from 'components/Header/Header';
 import DrawerHeader from 'components/Header/components/DrawerHeader';
 
 import RegisterModal from 'components/Modals/RegisterModal/RegisterModal';
+import LoginModal from 'components/Modals/LoginModal/LoginModal';
 
 import styles from './layout.module.scss';
 
@@ -26,6 +27,7 @@ const Layout: FC<IProps> = ({ children }) => {
         {children}
       </Box>
       <RegisterModal />
+      <LoginModal />
     </Box>
   );
 };

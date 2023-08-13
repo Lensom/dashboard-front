@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import { openRegistrationModal, userLogout } from 'pages/main/reducer';
+import { userLogout } from 'pages/main/reducer';
+import { openLoginModal } from 'pages/modals/reducer';
 import { useDispatch, useSelector } from 'react-redux';
 import { IReducer } from 'reducer';
 import { IMainReducer } from 'pages/main/reducer';
@@ -28,7 +29,11 @@ const UserPopover = () => {
     setAnchorEl(null);
   };
 
-  const handleOpenRegistrationModal = () => dispatch(openRegistrationModal());
+  const handleOpenLoginModal = () => {
+    dispatch(openLoginModal());
+    handleClose();
+  };
+
   const logoutUser = () => dispatch(userLogout());
 
   const open = Boolean(anchorEl);
@@ -70,7 +75,7 @@ const UserPopover = () => {
             {isAuth ? (
               <StyledMenuItem onClick={logoutUser}>Logout</StyledMenuItem>
             ) : (
-              <StyledMenuItem onClick={handleOpenRegistrationModal}>
+              <StyledMenuItem onClick={handleOpenLoginModal}>
                 Login
               </StyledMenuItem>
             )}

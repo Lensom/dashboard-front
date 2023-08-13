@@ -5,13 +5,13 @@ import { Typography, Box } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { IMainReducer } from 'pages/main/reducer';
 import {
-  closeRegistrationModal,
+  closeLoginModal,
   IModalsReducer,
-  openLoginModal,
+  openRegistrationModal,
 } from 'pages/modals/reducer';
 import { IReducer } from 'reducer';
 
-import Registration from 'components/Forms/Registration/Registration';
+import Login from 'components/Forms/Login/Login';
 
 const RegisterModal = () => {
   const dispatch = useDispatch();
@@ -20,17 +20,17 @@ const RegisterModal = () => {
   } = useSelector<IReducer, IMainReducer>((state) => state.main);
 
   const {
-    modals: { isRegistrationOpen },
+    modals: { isLoginOpen },
   } = useSelector<IReducer, IModalsReducer>((state) => state.modals);
 
   const handleClose = useCallback(() => {
-    dispatch(closeRegistrationModal());
-  }, [dispatch]);
+    dispatch(closeLoginModal());
+  }, []);
 
-  const handleLoginModal = () => {
+  const handleRegistrationModal = useCallback(() => {
     handleClose();
-    dispatch(openLoginModal());
-  };
+    dispatch(openRegistrationModal());
+  }, []);
 
   useEffect(() => {
     if (isAuth) {
@@ -41,7 +41,7 @@ const RegisterModal = () => {
   return (
     <div>
       <Modal
-        open={isRegistrationOpen}
+        open={isLoginOpen}
         onClose={handleClose}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
@@ -56,9 +56,9 @@ const RegisterModal = () => {
             textAlign: 'center',
           }}
         >
-          <Registration />
-          <Typography color="primary" onClick={handleLoginModal}>
-            Don you have an account? Sign in
+          <Login />
+          <Typography color="primary" onClick={handleRegistrationModal}>
+            Don't have an account? Sign up
           </Typography>
         </Box>
       </Modal>

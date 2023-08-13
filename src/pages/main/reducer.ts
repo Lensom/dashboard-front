@@ -1,9 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-  modals: {
-    isRegistrationOpen: false,
-  },
   user: {
     isAuth: false,
     loading: false,
@@ -24,9 +21,6 @@ export interface IUserInfo {
 }
 
 export interface IMainReducer {
-  modals: {
-    isRegistrationOpen: boolean;
-  };
   user: {
     isAuth: boolean;
     loading: boolean;
@@ -35,17 +29,10 @@ export interface IMainReducer {
 }
 
 const mainSlice = createSlice({
-  name: 'main',
+  name: 'user',
   initialState,
   reducers: {
-    openRegistrationModal: (state) => {
-      state.modals.isRegistrationOpen = true;
-    },
-    closeRegistrationModal: (state) => {
-      state.modals.isRegistrationOpen = false;
-    },
     registrationRequest: (state) => {
-      state.user.isAuth = false;
       state.user.loading = true;
     },
     registrationSuccess: (state, { payload }) => {
@@ -75,14 +62,25 @@ const mainSlice = createSlice({
       state.user.loading = false;
       state.user.info = initialState.user.info;
     },
+    loginRequest: (state) => {
+      state.user.loading = true;
+    },
+    loginSuccess: (state, { payload }) => {
+      state.user.isAuth = true;
+      state.user.loading = false;
+      state.user.info = payload;
+    },
+    loginError: (state) => {
+      state.user.isAuth = false;
+      state.user.loading = false;
+    },
   },
 });
 
 export const {
-  openRegistrationModal,
-  closeRegistrationModal,
   registrationRequest,
   fetchUserInfoRequest,
+  loginRequest,
   userLogout,
 } = mainSlice.actions;
 

@@ -16,3 +16,10 @@ export const userInformation = ({ params, token }: IRequestInterface) => {
     .then((response: AxiosResponse) => response)
     .catch((error: AxiosError) => error.response);
 };
+
+export const userLogin = ({ params, token }: IRequestInterface) => {
+  return ApiProvider(token)
+    .client.post(`/user/login`, params)
+    .then((response: AxiosResponse) => response)
+    .catch((error: AxiosError) => error.response);
+};
