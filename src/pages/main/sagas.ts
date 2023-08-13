@@ -19,6 +19,10 @@ function* postSuccessEffect(responseSuccess: IUserInfo) {
   yield Cookies.set('dashboardAccessToken', responseSuccess.token);
 }
 
+function* logoutEffect() {
+  yield Cookies.remove('dashboardAccessToken');
+}
+
 function* userRegistration({ payload }: any) {
   const req = API.userRegistration;
 
@@ -70,4 +74,5 @@ export default function* watchSaga() {
   yield takeLatest(actions.registrationRequest.type, userRegistration);
   yield takeLatest(actions.fetchUserInfoRequest.type, userInformation);
   yield takeLatest(actions.loginRequest.type, userLogin);
+  yield takeLatest(actions.userLogout.type, logoutEffect);
 }

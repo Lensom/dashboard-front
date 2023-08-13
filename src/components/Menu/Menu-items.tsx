@@ -4,10 +4,12 @@ import { openLoginModal } from 'pages/modals/reducer';
 import { useDispatch, useSelector } from 'react-redux';
 import { IReducer } from 'reducer';
 import { IMainReducer } from 'pages/main/reducer';
+import { Link } from 'react-router-dom';
 
 import { Popover, Paper, Box, Typography, Divider, Stack } from '@mui/material';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import IconButton from '@mui/material/IconButton';
+import { MenuItem } from '@mui/material';
 
 import { StyledMenuItem } from './styled';
 
@@ -61,25 +63,48 @@ const UserPopover = () => {
       >
         <Paper className={styles.paper}>
           <Box sx={{ p: 2 }}>
-            <Typography variant="subtitle2">{info.username}</Typography>
-            <Typography variant="body2">{info.email}</Typography>
+            <Typography variant="subtitle2">
+              {info.username || 'Hello, anonymous'}
+            </Typography>
+            <Typography variant="body2">
+              {info.email || 'Please, Log in or register'}
+            </Typography>
           </Box>
           <Divider />
-          <Stack spacing={0} sx={{ p: 1 }}>
-            <StyledMenuItem>Home</StyledMenuItem>
-            <StyledMenuItem>Profile</StyledMenuItem>
-            <StyledMenuItem>Settings</StyledMenuItem>
-          </Stack>
-          <Divider sx={{ my: 0 }} />
-          <Stack spacing={0} sx={{ p: 1 }}>
-            {isAuth ? (
-              <StyledMenuItem onClick={logoutUser}>Logout</StyledMenuItem>
-            ) : (
-              <StyledMenuItem onClick={handleOpenLoginModal}>
+
+          {isAuth ? (
+            <>
+              <Stack spacing={0} sx={{ p: 1 }}>
+                <StyledMenuItem>
+                  <Link to="/" className={styles.link}>
+                    Home
+                  </Link>
+                </StyledMenuItem>
+                <StyledMenuItem>
+                  <Link to="/profile" className={styles.link}>
+                    Profile
+                  </Link>
+                </StyledMenuItem>
+                <StyledMenuItem>
+                  <Link to="/settings" className={styles.link}>
+                    Settings
+                  </Link>
+                </StyledMenuItem>
+              </Stack>
+              <Divider sx={{ my: 0 }} />
+              <Stack spacing={0} sx={{ p: 1 }}>
+                <StyledMenuItem sx={{ p: 1 }} onClick={logoutUser}>
+                  Logout
+                </StyledMenuItem>
+              </Stack>
+            </>
+          ) : (
+            <Stack spacing={0} sx={{ p: 1 }}>
+              <StyledMenuItem sx={{ p: 1 }} onClick={handleOpenLoginModal}>
                 Login
               </StyledMenuItem>
-            )}
-          </Stack>
+            </Stack>
+          )}
         </Paper>
       </Popover>
     </div>

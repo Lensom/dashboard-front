@@ -5,7 +5,7 @@ const StyledMenuItem = styled(MenuItem)(() => ({
   fontSize: '14px',
   lineHeight: '22px',
   color: 'rgb(33, 43, 54)',
-  padding: '8px',
+  padding: '0',
 }));
 
 export { StyledMenuItem };
