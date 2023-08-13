@@ -1,0 +1,19 @@
+@import 'styles/var';
+
+.link {
+  display: flex;
+  line-height: 22px;
+  font-size: 14px;
+  font-weight: 500;
+  text-transform: capitalize;
+  color: $gray;
+  transition: all .3s ease;
+  text-decoration: none;
+  align-items: center;
+  padding: 4px 8px;
+  margin: 8px 12px;
+
+  &:hover {
+    background: rgba(0, 0, 0, 0.04);
+  }
+}

@@ -1,6 +1,6 @@
 import axios from 'axios';
 import Cookies from 'js-cookie';
-import { API_URL } from 'config/config';
+import { API_URL } from 'config';
 
 interface Provider {
   client: any; // Здесь типы клиентов axios могут быть точнее

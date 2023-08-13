@@ -10,7 +10,6 @@ export const userRegistration = ({ params, token }: IRequestInterface) => {
 };
 
 export const userInformation = ({ params, token }: IRequestInterface) => {
-  console.log(params, token);
   return ApiProvider(token)
     .client.get(`/user/get-info`, params)
     .then((response: AxiosResponse) => response)

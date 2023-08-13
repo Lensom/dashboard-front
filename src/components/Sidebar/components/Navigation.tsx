@@ -2,9 +2,7 @@ import List from '@mui/material/List';
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 
-import Divider from '@mui/material/Divider';
-
-import { navigation } from 'config/config';
+import { navigation } from 'config';
 
 import Link from './Link';
 
@@ -17,7 +15,6 @@ const Navigation = () => (
             <Link key={id} to={url} primary={name} icon={<Icon />} />
           ))}
       </List>
-      <Divider />
     </Paper>
   </Box>
 );

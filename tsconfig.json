@@ -17,7 +17,8 @@
     "baseUrl": "./src",
     "moduleResolution": "node",
     "paths": {
-      "components/*": ["components/*"]
+      "components/*": ["components/*"],
+      "images/*": ["assets/images/*"]
     }
   },
   "include": ["src/**/*.ts", "src/**/*.tsx"],

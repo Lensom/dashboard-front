@@ -25,18 +25,23 @@ const Header: FC<IProps> = ({ open, setOpen }) => {
   return (
     <AppBar position="fixed" open={open}>
       <Toolbar>
-        <IconButton
-          color="inherit"
-          aria-label="open drawer"
-          onClick={handleDrawerOpen}
-          edge="start"
-          className={cn(styles.icon, { [styles.closed]: open })}
-        >
-          <MenuIcon />
-        </IconButton>
+        {!open && (
+          <IconButton
+            color="inherit"
+            aria-label="open drawer"
+            onClick={handleDrawerOpen}
+            edge="start"
+            className={cn(styles.icon, { [styles.closed]: open })}
+          >
+            <MenuIcon className={styles.menu} />
+          </IconButton>
+        )}
+
         <Box className={styles.top}>
           <IconButton>
-            <SearchIcon sx={{ color: 'white' }} />
+            <SearchIcon
+              className={cn(styles.search, { [styles.opened]: !open })}
+            />
           </IconButton>
           <Box>
             <BasicMenu />

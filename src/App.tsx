@@ -11,14 +11,18 @@ import {
 
 import Cookies from 'js-cookie';
 
-import MainPage from 'pages/main/main';
+import MainPage from 'pages/main';
 import Dashboard from 'pages/dashboard';
+import Stocks from 'pages/stocks';
+import Savings from 'pages/savings';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route>
       <Route path="/" element={<MainPage />} />
       <Route path="/dashboard" element={<Dashboard />} />
+      <Route path="/savings" element={<Savings />} />
+      <Route path="/stocks" element={<Stocks />} />
     </Route>
   )
 );
@@ -26,8 +30,6 @@ const router = createBrowserRouter(
 const App = () => {
   const dispatch = useDispatch();
   const token = Cookies.get('dashboardAccessToken');
-
-  console.log(token, 'token');
 
   useEffect(() => {
     if (token) {
