@@ -57,6 +57,24 @@ const mainSlice = createSlice({
       state.user.isAuth = false;
       state.user.loading = false;
     },
+    fetchUserInfoRequest: (state) => {
+      state.user.loading = true;
+    },
+    fetchUserInfoSuccess: (state, { payload }) => {
+      state.user.loading = false;
+      state.user.isAuth = true;
+      state.user.info = payload;
+    },
+    fetchUserInfoError: (state) => {
+      state.user.isAuth = false;
+      state.user.loading = false;
+      state.user.info = initialState.user.info;
+    },
+    userLogout: (state) => {
+      state.user.isAuth = false;
+      state.user.loading = false;
+      state.user.info = initialState.user.info;
+    },
   },
 });
 
@@ -64,6 +82,8 @@ export const {
   openRegistrationModal,
   closeRegistrationModal,
   registrationRequest,
+  fetchUserInfoRequest,
+  userLogout,
 } = mainSlice.actions;
 
 export const { actions, reducer } = mainSlice;

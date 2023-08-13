@@ -1,4 +1,3 @@
-import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { Provider } from 'react-redux';
 import store from './store';
@@ -10,7 +9,9 @@ import App from './App';
 
 import './styles/index.scss';
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const root = ReactDOM.createRoot(
+  document.getElementById('root') as HTMLElement
+);
 
 const theme = createTheme({
   typography: {
@@ -19,12 +20,10 @@ const theme = createTheme({
 });
 
 root.render(
-  <React.StrictMode>
-    <Provider store={store}>
-      <ThemeProvider theme={theme}>
-        <CssBaseline />
-        <App />
-      </ThemeProvider>
-    </Provider>
-  </React.StrictMode>
+  <Provider store={store}>
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <App />
+    </ThemeProvider>
+  </Provider>
 );

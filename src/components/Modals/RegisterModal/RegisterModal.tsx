@@ -18,8 +18,6 @@ const RegisterModal = () => {
     dispatch(closeRegistrationModal());
   }, [dispatch]);
 
-  console.log(isAuth);
-
   useEffect(() => {
     if (isAuth) {
       handleClose();

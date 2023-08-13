@@ -21,8 +21,6 @@ function makeStore() {
 
   (store as SagaStore).sagaTask = sagaMiddleware.run(rootSagas);
 
-  console.log(store);
-
   return store;
 }
 

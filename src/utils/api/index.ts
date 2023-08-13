@@ -30,7 +30,6 @@ function* requestMiddleware({
       // yield call(setRequestError, data);
     }
   } catch (err) {
-    console.log(err);
     yield put(error(err));
     // yield call(setRequestError);
   }

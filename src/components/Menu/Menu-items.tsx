@@ -1,6 +1,8 @@
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { openRegistrationModal } from 'pages/main/reducer';
+import { openRegistrationModal, userLogout } from 'pages/main/reducer';
+import { useDispatch, useSelector } from 'react-redux';
+import { IReducer } from 'reducer';
+import { IMainReducer } from 'pages/main/reducer';
 
 import { Popover, Paper, Box, Typography, Divider, Stack } from '@mui/material';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
@@ -14,6 +16,10 @@ const UserPopover = () => {
   const dispatch = useDispatch();
   const [anchorEl, setAnchorEl] = useState(null);
 
+  const {
+    user: { info, isAuth },
+  } = useSelector<IReducer, IMainReducer>((state) => state.main);
+
   const handleClick = (event: any) => {
     setAnchorEl(event.currentTarget);
   };
@@ -23,6 +29,7 @@ const UserPopover = () => {
   };
 
   const handleOpenRegistrationModal = () => dispatch(openRegistrationModal());
+  const logoutUser = () => dispatch(userLogout());
 
   const open = Boolean(anchorEl);
   const id = open ? 'user-popover' : undefined;
@@ -49,8 +56,8 @@ const UserPopover = () => {
       >
         <Paper className={styles.paper}>
           <Box sx={{ p: 2 }}>
-            <Typography variant="subtitle2">Jaydon Frankie</Typography>
-            <Typography variant="body2">demo@minimals.cc</Typography>
+            <Typography variant="subtitle2">{info.username}</Typography>
+            <Typography variant="body2">{info.email}</Typography>
           </Box>
           <Divider />
           <Stack spacing={0} sx={{ p: 1 }}>
@@ -60,10 +67,13 @@ const UserPopover = () => {
           </Stack>
           <Divider sx={{ my: 0 }} />
           <Stack spacing={0} sx={{ p: 1 }}>
-            <StyledMenuItem>Logout</StyledMenuItem>
-            <StyledMenuItem onClick={handleOpenRegistrationModal}>
-              Login
-            </StyledMenuItem>
+            {isAuth ? (
+              <StyledMenuItem onClick={logoutUser}>Logout</StyledMenuItem>
+            ) : (
+              <StyledMenuItem onClick={handleOpenRegistrationModal}>
+                Login
+              </StyledMenuItem>
+            )}
           </Stack>
         </Paper>
       </Popover>

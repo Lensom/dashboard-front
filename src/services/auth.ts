@@ -8,3 +8,11 @@ export const userRegistration = ({ params, token }: IRequestInterface) => {
     .then((response: AxiosResponse) => response)
     .catch((error: AxiosError) => error.response);
 };
+
+export const userInformation = ({ params, token }: IRequestInterface) => {
+  console.log(params, token);
+  return ApiProvider(token)
+    .client.get(`/user/get-info`, params)
+    .then((response: AxiosResponse) => response)
+    .catch((error: AxiosError) => error.response);
+};
