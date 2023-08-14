@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { useState } from 'react';
 import Box from '@mui/material/Box';
 import Collapse from '@mui/material/Collapse';
 import IconButton from '@mui/material/IconButton';
@@ -13,42 +13,35 @@ import Paper from '@mui/material/Paper';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 
-function createData(
-  name: string,
-  calories: number,
-  fat: number,
-  carbs: number,
-  protein: number,
-  price: number
-) {
-  return {
-    name,
-    calories,
-    fat,
-    carbs,
-    protein,
-    price,
-    history: [
-      {
-        date: '2020-01-05',
-        customerId: '11091700',
-        amount: 3,
-      },
-      {
-        date: '2020-01-02',
-        customerId: 'Anonymous',
-        amount: 1,
-      },
-    ],
-  };
+interface IRowData {
+  name: string;
+  ticker: string;
+  count: number;
+  avgPrice: number;
+  currentPrice: number;
+  profitLossUsd: number;
+  profitLossProcent: number;
+  sum: number;
+  currentSum: number;
+  stocks: Array<string>;
 }
 
-function Row(props: { row: ReturnType<typeof createData> }) {
-  const { row } = props;
-  const [open, setOpen] = React.useState(false);
+const Row = ({
+  name,
+  ticker,
+  count,
+  avgPrice,
+  currentPrice,
+  profitLossUsd,
+  profitLossProcent,
+  sum,
+  currentSum,
+  stocks,
+}: IRowData) => {
+  const [open, setOpen] = useState<boolean>(false);
 
   return (
-    <React.Fragment>
+    <>
       <TableRow sx={{ '& > *': { borderBottom: 'unset' } }}>
         <TableCell>
           <IconButton
@@ -59,79 +52,73 @@ function Row(props: { row: ReturnType<typeof createData> }) {
             {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
           </IconButton>
         </TableCell>
-        <TableCell component="th" scope="row">
-          {row.name}
-        </TableCell>
-        <TableCell align="right">{row.calories}</TableCell>
-        <TableCell align="right">{row.fat}</TableCell>
-        <TableCell align="right">{row.carbs}</TableCell>
-        <TableCell align="right">{row.protein}</TableCell>
+        <TableCell>{name}</TableCell>
+        <TableCell align="center">{ticker}</TableCell>
+        <TableCell align="center">{count}</TableCell>
+        <TableCell align="center">{avgPrice}</TableCell>
+        <TableCell align="center">{currentPrice}</TableCell>
+        <TableCell align="center">{profitLossUsd}</TableCell>
+        <TableCell align="center">{profitLossProcent}</TableCell>
+        <TableCell align="center">{sum}</TableCell>
+        <TableCell align="center">{currentSum}</TableCell>
       </TableRow>
       <TableRow>
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
           <Collapse in={open} timeout="auto" unmountOnExit>
             <Box sx={{ margin: 1 }}>
               <Typography variant="h6" gutterBottom component="div">
-                History
+                Buy History
               </Typography>
               <Table size="small" aria-label="purchases">
                 <TableHead>
                   <TableRow>
                     <TableCell>Date</TableCell>
-                    <TableCell>Customer</TableCell>
+                    <TableCell>Count</TableCell>
                     <TableCell align="right">Amount</TableCell>
                     <TableCell align="right">Total price ($)</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {row.history.map((historyRow) => (
-                    <TableRow key={historyRow.date}>
-                      <TableCell component="th" scope="row">
-                        {historyRow.date}
-                      </TableCell>
-                      <TableCell>{historyRow.customerId}</TableCell>
-                      <TableCell align="right">{historyRow.amount}</TableCell>
-                      <TableCell align="right">
-                        {Math.round(historyRow.amount * row.price * 100) / 100}
-                      </TableCell>
-                    </TableRow>
-                  ))}
+                  {stocks &&
+                    stocks.map(({ date, count, price }: any) => (
+                      <TableRow key={date + price}>
+                        <TableCell scope="row">{date}</TableCell>
+                        <TableCell>{count}</TableCell>
+                        <TableCell align="right">{price}</TableCell>
+                        <TableCell align="right">{price * count}</TableCell>
+                      </TableRow>
+                    ))}
                 </TableBody>
               </Table>
             </Box>
           </Collapse>
         </TableCell>
       </TableRow>
-    </React.Fragment>
+    </>
   );
-}
+};
 
-const rows = [
-  createData('Frozen yoghurt', 159, 6.0, 24, 4.0, 3.99),
-  createData('Ice cream sandwich', 237, 9.0, 37, 4.3, 4.99),
-  createData('Eclair', 262, 16.0, 24, 6.0, 3.79),
-  createData('Cupcake', 305, 3.7, 67, 4.3, 2.5),
-  createData('Gingerbread', 356, 16.0, 49, 3.9, 1.5),
-];
-
-const StockTable = () => {
+const StockTable = ({ items }): any => {
   return (
     <TableContainer component={Paper}>
       <Table aria-label="collapsible table">
         <TableHead>
           <TableRow>
             <TableCell />
-            <TableCell>Dessert (100g serving)</TableCell>
-            <TableCell align="right">Calories</TableCell>
-            <TableCell align="right">Fat&nbsp;(g)</TableCell>
-            <TableCell align="right">Carbs&nbsp;(g)</TableCell>
-            <TableCell align="right">Protein&nbsp;(g)</TableCell>
+            <TableCell>Name</TableCell>
+            <TableCell align="center">Ticker</TableCell>
+            <TableCell align="center">Count</TableCell>
+            <TableCell align="center">Avg Buy Price</TableCell>
+            <TableCell align="center">Current Price</TableCell>
+            <TableCell align="center">Profit/loss, $</TableCell>
+            <TableCell align="center">Profit/loss, %</TableCell>
+            <TableCell align="center">Sum, $</TableCell>
+            <TableCell align="center">Current Sum, $</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row) => (
-            <Row key={row.name} row={row} />
-          ))}
+          {items &&
+            items.map((item: IRowData) => <Row key={item.name} {...item} />)}
         </TableBody>
       </Table>
     </TableContainer>

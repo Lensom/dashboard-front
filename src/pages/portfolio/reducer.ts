@@ -12,14 +12,14 @@ export interface IStock {
 }
 
 export interface IPortfolioReducer {
-  portfolio: {
+  stocks: {
     items: Array<IStock>;
     loading: boolean;
   };
   loadingStock: boolean;
 }
 const initialState: IPortfolioReducer = {
-  portfolio: {
+  stocks: {
     items: [],
     loading: false,
   },
@@ -31,21 +31,21 @@ const Portfolio = createSlice({
   initialState,
   reducers: {
     fetchPortfolioRequest: (state) => {
-      state.portfolio.loading = true;
+      state.stocks.loading = true;
     },
     fetchPortfolioSuccess: (state, action: PayloadAction<IStock[]>) => {
-      state.portfolio.loading = false;
-      state.portfolio.items = action.payload;
+      state.stocks.loading = false;
+      state.stocks.items = action.payload;
     },
     fetchPortfolioError: (state) => {
-      state.portfolio.loading = false;
+      state.stocks.loading = false;
     },
     addStockToPortfolioRequest: (state) => {
       state.loadingStock = true;
     },
     addStockToPortfolioSuccess: (state, action: PayloadAction<IStock[]>) => {
       state.loadingStock = false;
-      state.portfolio.items = action.payload;
+      state.stocks.items = action.payload;
     },
     addStockToPortfolioError: (state) => {
       state.loadingStock = false;
