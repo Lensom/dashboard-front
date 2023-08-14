@@ -51,6 +51,7 @@ const RegisterModal = () => {
           sx={{
             background: 'white',
             maxWidth: '400px',
+            width: '100%',
             p: 2,
             m: 'auto',
             textAlign: 'center',

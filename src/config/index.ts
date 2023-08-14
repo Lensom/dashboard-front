@@ -20,8 +20,8 @@ export const navigation = [
   },
   {
     id: 2,
-    url: '/stocks',
-    name: 'Stocks',
+    url: '/portfolio',
+    name: 'Portfolio',
     Icon: ShowChartIcon,
   },
   {

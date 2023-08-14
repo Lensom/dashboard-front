@@ -1,17 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
-
-const initialState = {
-  user: {
-    isAuth: false,
-    loading: false,
-    info: {
-      email: '',
-      username: '',
-      _id: '',
-      token: '',
-    },
-  },
-};
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 export interface IUserInfo {
   email: string;
@@ -28,6 +15,19 @@ export interface IMainReducer {
   };
 }
 
+const initialState: IMainReducer = {
+  user: {
+    isAuth: false,
+    loading: false,
+    info: {
+      email: '',
+      username: '',
+      _id: '',
+      token: '',
+    },
+  },
+};
+
 const mainSlice = createSlice({
   name: 'user',
   initialState,
@@ -35,10 +35,10 @@ const mainSlice = createSlice({
     registrationRequest: (state) => {
       state.user.loading = true;
     },
-    registrationSuccess: (state, { payload }) => {
+    registrationSuccess: (state, action: PayloadAction<IUserInfo>) => {
       state.user.isAuth = true;
       state.user.loading = false;
-      state.user.info = payload;
+      state.user.info = action.payload;
     },
     registrationError: (state) => {
       state.user.isAuth = false;
@@ -47,10 +47,10 @@ const mainSlice = createSlice({
     fetchUserInfoRequest: (state) => {
       state.user.loading = true;
     },
-    fetchUserInfoSuccess: (state, { payload }) => {
+    fetchUserInfoSuccess: (state, action: PayloadAction<IUserInfo>) => {
       state.user.loading = false;
       state.user.isAuth = true;
-      state.user.info = payload;
+      state.user.info = action.payload;
     },
     fetchUserInfoError: (state) => {
       state.user.isAuth = false;
@@ -65,10 +65,10 @@ const mainSlice = createSlice({
     loginRequest: (state) => {
       state.user.loading = true;
     },
-    loginSuccess: (state, { payload }) => {
+    loginSuccess: (state, action: PayloadAction<IUserInfo>) => {
       state.user.isAuth = true;
       state.user.loading = false;
-      state.user.info = payload;
+      state.user.info = action.payload;
     },
     loginError: (state) => {
       state.user.isAuth = false;
@@ -84,4 +84,4 @@ export const {
   userLogout,
 } = mainSlice.actions;
 
-export const { actions, reducer } = mainSlice;
+export const { reducer, actions } = mainSlice;
