@@ -13,6 +13,8 @@ import Paper from '@mui/material/Paper';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 
+import { red, green } from 'config';
+
 interface IRowData {
   name: string;
   ticker: string;
@@ -57,13 +59,27 @@ const Row = ({
         <TableCell align="center">{totalShares}</TableCell>
         <TableCell align="center">{avgPrice}</TableCell>
         <TableCell align="center">{currentPrice}</TableCell>
-        <TableCell align="center">{profitLossUsd}</TableCell>
-        <TableCell align="center">{profitLossProcent}</TableCell>
+        <TableCell
+          align="center"
+          sx={{
+            background: profitLossUsd < 0 ? red : green,
+          }}
+        >
+          {profitLossUsd}
+        </TableCell>
+        <TableCell
+          align="center"
+          sx={{
+            background: profitLossUsd < 0 ? red : green,
+          }}
+        >
+          {profitLossProcent}
+        </TableCell>
         <TableCell align="center">{totalCost}</TableCell>
         <TableCell align="center">{currentCost}</TableCell>
       </TableRow>
       <TableRow>
-        <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
+        <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={10}>
           <Collapse in={open} timeout="auto" unmountOnExit>
             <Box sx={{ margin: 1 }}>
               <Typography variant="h6" gutterBottom component="div">
@@ -73,8 +89,8 @@ const Row = ({
                 <TableHead>
                   <TableRow>
                     <TableCell>Date</TableCell>
-                    <TableCell>Count</TableCell>
-                    <TableCell align="right">Amount</TableCell>
+                    <TableCell>Total</TableCell>
+                    <TableCell align="right">Price</TableCell>
                     <TableCell align="right">Total price ($)</TableCell>
                   </TableRow>
                 </TableHead>
@@ -98,22 +114,41 @@ const Row = ({
   );
 };
 
-const StockTable = ({ items }): any => {
+const StockTable = ({ items }: any) => {
   return (
-    <TableContainer component={Paper}>
-      <Table aria-label="collapsible table">
+    <TableContainer component={Paper} sx={{ boxShadow: 'none' }}>
+      <Table
+        aria-label="collapsible table"
+        sx={{ border: '1px solid rgba(224, 224, 224, 1)' }}
+      >
         <TableHead>
           <TableRow>
             <TableCell />
-            <TableCell>Name</TableCell>
-            <TableCell align="center">Ticker</TableCell>
-            <TableCell align="center">Count</TableCell>
-            <TableCell align="center">Avg Buy Price</TableCell>
-            <TableCell align="center">Current Price</TableCell>
-            <TableCell align="center">Profit/loss, $</TableCell>
-            <TableCell align="center">Profit/loss, %</TableCell>
-            <TableCell align="center">Sum, $</TableCell>
-            <TableCell align="center">Current Sum, $</TableCell>
+            <TableCell sx={{ boxShadow: 'none' }}>Name</TableCell>
+            <TableCell sx={{ boxShadow: 'none' }} align="center">
+              Ticker
+            </TableCell>
+            <TableCell sx={{ boxShadow: 'none' }} align="center">
+              Count
+            </TableCell>
+            <TableCell sx={{ boxShadow: 'none' }} align="center">
+              Avg Buy Price
+            </TableCell>
+            <TableCell sx={{ boxShadow: 'none' }} align="center">
+              Current Price
+            </TableCell>
+            <TableCell sx={{ boxShadow: 'none' }} align="center">
+              Profit/loss, $
+            </TableCell>
+            <TableCell sx={{ boxShadow: 'none' }} align="center">
+              Profit/loss, %
+            </TableCell>
+            <TableCell sx={{ boxShadow: 'none' }} align="center">
+              Sum, $
+            </TableCell>
+            <TableCell sx={{ boxShadow: 'none' }} align="center">
+              Current Sum, $
+            </TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
