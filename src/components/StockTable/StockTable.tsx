@@ -16,27 +16,27 @@ import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 interface IRowData {
   name: string;
   ticker: string;
-  count: number;
+  totalShares: number;
   avgPrice: number;
   currentPrice: number;
   profitLossUsd: number;
   profitLossProcent: number;
-  sum: number;
-  currentSum: number;
-  stocks: Array<string>;
+  totalCost: number;
+  currentCost: number;
+  buyHistory: Array<string>;
 }
 
 const Row = ({
   name,
   ticker,
-  count,
+  totalShares,
   avgPrice,
   currentPrice,
   profitLossUsd,
   profitLossProcent,
-  sum,
-  currentSum,
-  stocks,
+  totalCost,
+  currentCost,
+  buyHistory,
 }: IRowData) => {
   const [open, setOpen] = useState<boolean>(false);
 
@@ -54,13 +54,13 @@ const Row = ({
         </TableCell>
         <TableCell>{name}</TableCell>
         <TableCell align="center">{ticker}</TableCell>
-        <TableCell align="center">{count}</TableCell>
+        <TableCell align="center">{totalShares}</TableCell>
         <TableCell align="center">{avgPrice}</TableCell>
         <TableCell align="center">{currentPrice}</TableCell>
         <TableCell align="center">{profitLossUsd}</TableCell>
         <TableCell align="center">{profitLossProcent}</TableCell>
-        <TableCell align="center">{sum}</TableCell>
-        <TableCell align="center">{currentSum}</TableCell>
+        <TableCell align="center">{totalCost}</TableCell>
+        <TableCell align="center">{currentCost}</TableCell>
       </TableRow>
       <TableRow>
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
@@ -79,8 +79,8 @@ const Row = ({
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {stocks &&
-                    stocks.map(({ date, count, price }: any) => (
+                  {buyHistory &&
+                    buyHistory.map(({ date, count, price }: any) => (
                       <TableRow key={date + price}>
                         <TableCell scope="row">{date}</TableCell>
                         <TableCell>{count}</TableCell>
