@@ -4,6 +4,7 @@ const initialState = {
   modals: {
     isLoginOpen: false,
     isRegistrationOpen: false,
+    isAddStockOpen: false,
   },
 };
 
@@ -11,6 +12,7 @@ export interface IModalsReducer {
   modals: {
     isRegistrationOpen: boolean;
     isLoginOpen: boolean;
+    isAddStockOpen: boolean;
   };
 }
 
@@ -30,6 +32,12 @@ const modalsSlice = createSlice({
     closeLoginModal: (state) => {
       state.modals.isLoginOpen = false;
     },
+    openAddStockModal: (state) => {
+      state.modals.isAddStockOpen = true;
+    },
+    closeAddStockModal: (state) => {
+      state.modals.isAddStockOpen = false;
+    },
   },
 });
 
@@ -38,6 +46,8 @@ export const {
   closeRegistrationModal,
   openLoginModal,
   closeLoginModal,
+  openAddStockModal,
+  closeAddStockModal,
 } = modalsSlice.actions;
 
 export const { actions, reducer } = modalsSlice;

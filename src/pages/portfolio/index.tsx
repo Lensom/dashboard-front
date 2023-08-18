@@ -11,6 +11,8 @@ import Layout from 'components/Layout/Layout';
 import StatisticBlock from 'components/StatisticBlock/StatisticBlock';
 import StockTable from 'components/StockTable/StockTable';
 
+import { openAddStockModal } from 'pages/modals/reducer';
+
 import imageStockTotal from 'assets/images/stock-total.png';
 import imageStockPos from 'assets/images/stock-pos.png';
 import imageStockCount from 'assets/images/stock-count.png';
@@ -19,8 +21,12 @@ const Portfolio = () => {
   const dispatch = useDispatch();
 
   const {
-    stocks: { items, loading, totalSum, totalCount, posLos },
+    stocks: { items, loading, totalCount, posLos, currentSum },
   } = useSelector<IReducer, IPortfolioReducer>((state) => state.portfolio);
+
+  const handleAddStockModal = () => {
+    dispatch(openAddStockModal());
+  };
 
   useEffect(() => {
     dispatch(fetchPortfolioRequest());
@@ -32,25 +38,25 @@ const Portfolio = () => {
         id: 0,
         title: 'Total',
         image: imageStockTotal,
-        info: `${totalSum} $`,
+        info: `${currentSum} $`,
         color: 'yellow',
       },
       {
-        id: 0,
+        id: 1,
         title: 'Pos/los',
         image: imageStockPos,
         info: `${posLos} %`,
         color: 'red',
       },
       {
-        id: 0,
+        id: 2,
         title: 'Stocks count',
         image: imageStockCount,
         info: totalCount,
         color: 'green',
       },
     ],
-    [totalSum]
+    [items, totalCount, posLos, currentSum]
   );
 
   return (
@@ -70,7 +76,9 @@ const Portfolio = () => {
       <Box sx={{ m: '16px 0' }}>
         <StockTable items={items} />
       </Box>
-      <Button variant="contained">Add new stock</Button>
+      <Button variant="contained" onClick={handleAddStockModal}>
+        Add new stock
+      </Button>
     </Layout>
   );
 };

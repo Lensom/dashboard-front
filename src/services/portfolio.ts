@@ -15,3 +15,10 @@ export const addNewStock = ({ params, token }: IRequestInterface) => {
     .then((response: AxiosResponse) => response)
     .catch((error: AxiosError) => error.response);
 };
+
+export const removeStock = ({ params, token }: IRequestInterface) => {
+  return ApiProvider(token)
+    .client.delete(`/portfolio/${params}`, params)
+    .then((response: AxiosResponse) => response)
+    .catch((error: AxiosError) => error.response);
+};

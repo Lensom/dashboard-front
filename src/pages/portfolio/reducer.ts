@@ -38,6 +38,18 @@ const initialState: IPortfolioReducer = {
   loadingStock: false,
 };
 
+const calculateStocksData = (stocks: Array<IStock>) => {
+  const totalSum = stocks.reduce((acc, item) => acc + item.totalCost, 0);
+  const currentSum = stocks.reduce(
+    (acc, item) => acc + item.currentPrice * item.totalShares,
+    0
+  );
+  const posLos = Number(((currentSum * 100) / totalSum - 100).toFixed(2));
+  const totalCount = stocks.length;
+
+  return { totalSum, currentSum, posLos, totalCount };
+};
+
 const Portfolio = createSlice({
   name: 'portfolio',
   initialState,
@@ -48,20 +60,8 @@ const Portfolio = createSlice({
     fetchPortfolioSuccess: (state, action: PayloadAction<IStock[]>) => {
       state.stocks.loading = false;
       state.stocks.items = action.payload;
-      state.stocks.totalSum = state.stocks.items.reduce(
-        (acc, item) => acc + item.totalCost,
-        0
-      );
-      state.stocks.currentSum = state.stocks.items.reduce(
-        (acc, item) => acc + item.currentPrice * item.totalShares,
-        0
-      );
-      state.stocks.posLos = Number(
-        ((state.stocks.currentSum * 100) / state.stocks.totalSum - 100).toFixed(
-          2
-        )
-      );
-      state.stocks.totalCount = state.stocks.items.length;
+      const stocksData = calculateStocksData(state.stocks.items);
+      Object.assign(state.stocks, stocksData);
     },
     fetchPortfolioError: (state) => {
       state.stocks.loading = false;
@@ -72,13 +72,31 @@ const Portfolio = createSlice({
     addStockToPortfolioSuccess: (state, action: PayloadAction<IStock[]>) => {
       state.loadingStock = false;
       state.stocks.items = action.payload;
+      const stocksData = calculateStocksData(state.stocks.items);
+      Object.assign(state.stocks, stocksData);
     },
     addStockToPortfolioError: (state) => {
+      state.loadingStock = false;
+    },
+    removeStockRequest: (state) => {
+      state.loadingStock = true;
+    },
+    removeStockSuccess: (state, action: PayloadAction<IStock[]>) => {
+      state.loadingStock = false;
+      state.stocks.items = action.payload;
+      const stocksData = calculateStocksData(state.stocks.items);
+      Object.assign(state.stocks, stocksData);
+    },
+    removeStockError: (state) => {
       state.loadingStock = false;
     },
   },
 });
 
-export const { fetchPortfolioRequest } = Portfolio.actions;
+export const {
+  fetchPortfolioRequest,
+  addStockToPortfolioRequest,
+  removeStockRequest,
+} = Portfolio.actions;
 
 export const { reducer, actions } = Portfolio;

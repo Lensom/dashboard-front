@@ -10,10 +10,14 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
+import Button from '@mui/material/Button';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 
+import { useDispatch } from 'react-redux';
+
 import { red, green } from 'config';
+import { removeStockRequest } from 'pages/portfolio/reducer';
 
 interface IRowData {
   name: string;
@@ -41,6 +45,12 @@ const Row = ({
   buyHistory,
 }: IRowData) => {
   const [open, setOpen] = useState<boolean>(false);
+
+  const dispatch = useDispatch();
+
+  const deleteStock = (ticker: string) => {
+    dispatch(removeStockRequest(ticker));
+  };
 
   return (
     <>
@@ -77,6 +87,17 @@ const Row = ({
         </TableCell>
         <TableCell align="center">{totalCost}</TableCell>
         <TableCell align="center">{currentCost}</TableCell>
+        <TableCell align="center">
+          {' '}
+          <Button
+            type="button"
+            variant="contained"
+            sx={{ minWidth: '20px' }}
+            onClick={() => deleteStock(ticker)}
+          >
+            X
+          </Button>
+        </TableCell>
       </TableRow>
       <TableRow>
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={10}>
@@ -149,6 +170,7 @@ const StockTable = ({ items }: any) => {
             <TableCell sx={{ boxShadow: 'none' }} align="center">
               Current Sum, $
             </TableCell>
+            <TableCell />
           </TableRow>
         </TableHead>
         <TableBody>

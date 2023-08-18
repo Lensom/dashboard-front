@@ -1,8 +1,9 @@
-import { takeLatest } from 'redux-saga/effects';
+import { takeLatest, put } from 'redux-saga/effects';
 import { IPortfolioReducer, actions } from './reducer';
 
 import * as API from 'services';
 import { requestMiddleware } from 'utils';
+import { closeAddStockModal } from 'pages/modals/reducer';
 
 interface IMiddleware {
   req: any;
@@ -37,11 +38,36 @@ function* addNewStockPortfolio({ payload }: any) {
     addStockToPortfolioError: error,
   } = actions;
 
+  function* postSuccessEffect() {
+    yield put(closeAddStockModal());
+  }
+
   const middleware: IMiddleware = {
     req,
     params: payload,
     success,
     error,
+    postSuccessEffect,
+  };
+
+  yield requestMiddleware(middleware);
+}
+
+function* removeStockPortfolio({ payload }: any) {
+  const req = API.removeStock;
+
+  const { removeStockSuccess: success, removeStockError: error } = actions;
+
+  // function* postSuccessEffect() {
+  //   yield put(closeAddStockModal());
+  // }
+
+  const middleware: IMiddleware = {
+    req,
+    params: payload,
+    success,
+    error,
+    // postSuccessEffect,
   };
 
   yield requestMiddleware(middleware);
@@ -53,4 +79,5 @@ export default function* watchSaga() {
     actions.addStockToPortfolioRequest.type,
     addNewStockPortfolio
   );
+  yield takeLatest(actions.removeStockRequest.type, removeStockPortfolio);
 }
