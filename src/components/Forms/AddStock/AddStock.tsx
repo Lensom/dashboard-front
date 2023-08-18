@@ -1,14 +1,25 @@
 import { useDispatch } from 'react-redux';
+import { IReducer } from 'reducer';
+import { useSelector } from 'react-redux';
+import {
+  IPortfolioReducer,
+  addStockToPortfolioRequest,
+} from 'pages/portfolio/reducer';
+
+import CloseIcon from '@mui/icons-material/Close';
 import { Button, TextField, Typography } from '@mui/material';
 import Box from '@mui/material/Box';
+import LoadingButton from '@mui/lab/LoadingButton';
+import SaveIcon from '@mui/icons-material/Save';
+import IconButton from '@mui/material/IconButton';
+
 import { Formik, Form, Field, FieldArray, ErrorMessage } from 'formik';
 import * as yup from 'yup';
+
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import 'dayjs/locale/de';
-
-import { addStockToPortfolioRequest } from 'pages/portfolio/reducer';
 
 import styles from './add-stock.module.scss';
 
@@ -17,6 +28,10 @@ const AddStock = () => {
   const handleSubmit = (data: any) => {
     dispatch(addStockToPortfolioRequest(data));
   };
+
+  const { loadingStock } = useSelector<IReducer, IPortfolioReducer>(
+    (state) => state.portfolio
+  );
 
   const validationSchema = yup.object().shape({
     ticker: yup.string().required('Ticker is required'),
@@ -60,7 +75,7 @@ const AddStock = () => {
                         key={index}
                         sx={{
                           display: 'flex',
-                          alignItems: 'baseline',
+                          alignItems: 'center',
                           gap: '10px',
                         }}
                       >
@@ -99,15 +114,9 @@ const AddStock = () => {
                           required
                           sx={{ width: '200px', margin: '8px 0' }}
                         />
-                        <Button
-                          type="button"
-                          variant="contained"
-                          color="secondary"
-                          onClick={() => remove(index)}
-                          sx={{ minWidth: '20px' }}
-                        >
-                          X
-                        </Button>
+                        <IconButton onClick={() => remove(index)}>
+                          <CloseIcon />
+                        </IconButton>
                       </Box>
                     ))}
                     <Button
@@ -123,9 +132,22 @@ const AddStock = () => {
                 )}
               </FieldArray>
             </Box>
-            <Button type="submit" variant="contained" color="primary">
-              Submit
-            </Button>
+            <LoadingButton
+              type="submit"
+              loading={loadingStock}
+              loadingPosition="start"
+              startIcon={<SaveIcon />}
+              variant="contained"
+              sx={{
+                width: '100px',
+                bgcolor: 'rgb(0, 167, 111)',
+                '&:hover': {
+                  bgcolor: 'rgb(0, 167, 111, .8)',
+                },
+              }}
+            >
+              Save
+            </LoadingButton>
           </Form>
         )}
       </Formik>

@@ -18,7 +18,6 @@ export interface IStock {
 export interface IPortfolioReducer {
   stocks: {
     items: Array<IStock>;
-    loading: boolean;
     totalSum: number;
     totalCount: number;
     currentSum: number;
@@ -29,7 +28,6 @@ export interface IPortfolioReducer {
 const initialState: IPortfolioReducer = {
   stocks: {
     items: [],
-    loading: false,
     totalSum: 0,
     totalCount: 0,
     currentSum: 0,

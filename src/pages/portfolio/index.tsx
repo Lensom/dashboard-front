@@ -23,7 +23,7 @@ const Portfolio = () => {
   const dispatch = useDispatch();
 
   const {
-    stocks: { items, loading, totalCount, posLos, currentSum },
+    stocks: { items, totalCount, posLos, currentSum },
   } = useSelector<IReducer, IPortfolioReducer>((state) => state.portfolio);
 
   const handleAddStockModal = () => {
