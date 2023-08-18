@@ -4,6 +4,8 @@ import { fetchPortfolioRequest } from './reducer';
 import { IPortfolioReducer } from 'pages/portfolio/reducer';
 import { IReducer } from 'reducer';
 
+import IconButton from '@mui/material/IconButton';
+import AddIcon from '@mui/icons-material/Add';
 import Button from '@mui/material/Button/Button';
 import Box from '@mui/material/Box/Box';
 
@@ -76,8 +78,25 @@ const Portfolio = () => {
       <Box sx={{ m: '16px 0' }}>
         <StockTable items={items} />
       </Box>
-      <Button variant="contained" onClick={handleAddStockModal}>
-        Add new stock
+      <Button
+        variant="contained"
+        onClick={handleAddStockModal}
+        sx={{
+          borderRadius: '50%',
+          minWidth: '40px',
+          width: '40px',
+          height: '40px',
+          marginLeft: 'auto',
+          display: 'flex',
+          bgcolor: 'rgb(0, 167, 111)',
+          '&:hover': {
+            bgcolor: 'rgb(0, 167, 111, .8)',
+          },
+        }}
+      >
+        <IconButton sx={{ color: 'white' }}>
+          <AddIcon />
+        </IconButton>
       </Button>
     </Layout>
   );

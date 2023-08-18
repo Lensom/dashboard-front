@@ -1,5 +1,9 @@
 import { FC } from 'react';
-import { Stack, Box, Typography } from '@mui/material';
+import { IReducer } from 'reducer';
+import { useSelector } from 'react-redux';
+import { IPortfolioReducer } from 'pages/portfolio/reducer';
+
+import { Stack, Box, Typography, CircularProgress } from '@mui/material';
 import { stockInfoBackgrounds, stockInfoColors } from 'config';
 
 interface IStaticBlock {
@@ -10,6 +14,10 @@ interface IStaticBlock {
 }
 
 const StatisticBlock: FC<IStaticBlock> = ({ title, image, info, color }) => {
+  const { loadingStock } = useSelector<IReducer, IPortfolioReducer>(
+    (state) => state.portfolio
+  );
+
   return (
     <Stack
       direction="column"
@@ -32,9 +40,13 @@ const StatisticBlock: FC<IStaticBlock> = ({ title, image, info, color }) => {
           color: stockInfoColors[color],
           fontSize: '32px',
           fontWeight: 600,
+          height: '50px',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
         }}
       >
-        {info}
+        {loadingStock ? <CircularProgress color="inherit" /> : info}
       </Typography>
       <Typography
         sx={{

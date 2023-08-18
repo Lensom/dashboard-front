@@ -7,3 +7,11 @@ body {
   -moz-osx-font-smoothing: grayscale;
   background: white;
 }
+
+.color-gray {
+  color: $gray;
+}
+
+.color-green {
+  background: $green-main;
+}
