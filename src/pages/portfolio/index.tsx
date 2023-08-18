@@ -19,7 +19,7 @@ const Portfolio = () => {
   const dispatch = useDispatch();
 
   const {
-    stocks: { items, loading, totalSum, totalCount },
+    stocks: { items, loading, totalSum, totalCount, posLos },
   } = useSelector<IReducer, IPortfolioReducer>((state) => state.portfolio);
 
   useEffect(() => {
@@ -39,7 +39,7 @@ const Portfolio = () => {
         id: 0,
         title: 'Pos/los',
         image: imageStockPos,
-        info: 222,
+        info: `${posLos} %`,
         color: 'red',
       },
       {

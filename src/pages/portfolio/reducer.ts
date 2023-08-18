@@ -10,6 +10,9 @@ export interface IStock {
   ticker: string;
   stocks: Array<IStockInfo>;
   currentCost: string;
+  currentPrice: number;
+  totalShares: number;
+  totalCost: number;
 }
 
 export interface IPortfolioReducer {
@@ -18,6 +21,8 @@ export interface IPortfolioReducer {
     loading: boolean;
     totalSum: number;
     totalCount: number;
+    currentSum: number;
+    posLos: number;
   };
   loadingStock: boolean;
 }
@@ -27,6 +32,8 @@ const initialState: IPortfolioReducer = {
     loading: false,
     totalSum: 0,
     totalCount: 0,
+    currentSum: 0,
+    posLos: 0,
   },
   loadingStock: false,
 };
@@ -42,8 +49,17 @@ const Portfolio = createSlice({
       state.stocks.loading = false;
       state.stocks.items = action.payload;
       state.stocks.totalSum = state.stocks.items.reduce(
-        (acc, item) => acc + Number(item.currentCost),
+        (acc, item) => acc + item.totalCost,
         0
+      );
+      state.stocks.currentSum = state.stocks.items.reduce(
+        (acc, item) => acc + item.currentPrice * item.totalShares,
+        0
+      );
+      state.stocks.posLos = Number(
+        ((state.stocks.currentSum * 100) / state.stocks.totalSum - 100).toFixed(
+          2
+        )
       );
       state.stocks.totalCount = state.stocks.items.length;
     },
