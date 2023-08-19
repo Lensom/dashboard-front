@@ -1,6 +1,6 @@
 import axios from 'axios';
 import Cookies from 'js-cookie';
-import { API_URL } from 'config';
+// import { API_URL } from 'config';
 
 interface Provider {
   client: any; // Здесь типы клиентов axios могут быть точнее
@@ -13,6 +13,8 @@ interface Provider {
 const providerInfo: { provider: Provider | null } = {
   provider: null,
 };
+
+const API_URL = 'https://zany-lime-perch-cap.cyclic.cloud';
 
 export default function ApiProvider(ssrToken?: string, locale?: string): any {
   const token = ssrToken || Cookies.get('dashboardAccessToken');
