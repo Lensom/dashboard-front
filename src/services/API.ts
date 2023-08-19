@@ -1,10 +1,9 @@
 import axios from 'axios';
 import Cookies from 'js-cookie';
-// import { API_URL } from 'config';
 
 interface Provider {
-  client: any; // Здесь типы клиентов axios могут быть точнее
-  clientUpload: any; // То же самое здесь
+  client: any;
+  clientUpload: any;
   apiURL: string;
   token: string | undefined;
   locale: string | undefined;
@@ -14,7 +13,10 @@ const providerInfo: { provider: Provider | null } = {
   provider: null,
 };
 
-const API_URL = 'https://zany-lime-perch-cap.cyclic.cloud';
+const API_URL =
+  process.env.REACT_APP_API_BASE_URL_LOCAL ||
+  process.env.REACT_APP_API_BASE_URL_SERVER ||
+  '';
 
 export default function ApiProvider(ssrToken?: string, locale?: string): any {
   const token = ssrToken || Cookies.get('dashboardAccessToken');
@@ -29,8 +31,6 @@ export default function ApiProvider(ssrToken?: string, locale?: string): any {
   ) {
     return providerInfo.provider;
   }
-
-  console.log(API_URL, 'test API VERCEL');
 
   const client = axios.create({
     baseURL: API_URL,
