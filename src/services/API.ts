@@ -28,6 +28,8 @@ export default function ApiProvider(ssrToken?: string, locale?: string): any {
     return providerInfo.provider;
   }
 
+  console.log(API_URL, 'test API VERCEL');
+
   const client = axios.create({
     baseURL: API_URL,
     headers: {
