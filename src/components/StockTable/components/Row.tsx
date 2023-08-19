@@ -10,12 +10,14 @@ import TableBody from '@mui/material/TableBody';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import Typography from '@mui/material/Typography';
+
 import DeleteIcon from '@mui/icons-material/Delete';
+import ModeEditIcon from '@mui/icons-material/ModeEdit';
 
 import { useDispatch } from 'react-redux';
 import { removeStockRequest } from 'pages/portfolio/reducer';
 
-import { red, green } from 'config';
+import { red, green, cells } from 'config';
 import { formatDate } from 'utils';
 
 import { IRowData } from '../StockTable';
@@ -75,7 +77,12 @@ const Row = ({
         </TableCell>
         <TableCell align="center">{totalCost}</TableCell>
         <TableCell align="center">{currentCost}</TableCell>
-        <TableCell align="center">
+        <TableCell align="right" sx={{ width: '70px' }}>
+          <IconButton>
+            <ModeEditIcon className="color-gray" />
+          </IconButton>
+        </TableCell>
+        <TableCell align="right" sx={{ width: '70px' }}>
           <IconButton
             aria-label="delete"
             size="large"
@@ -88,7 +95,7 @@ const Row = ({
       <TableRow>
         <TableCell
           style={{ paddingBottom: 0, paddingTop: 0, borderBottom: 'none' }}
-          colSpan={11}
+          colSpan={cells.length}
         >
           <Collapse in={open} timeout="auto" unmountOnExit>
             <Box sx={{ margin: 1 }}>

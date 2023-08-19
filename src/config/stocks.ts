@@ -82,4 +82,9 @@ export const cells: Array<ICells> = [
     title: null,
     align: 'left',
   },
+  {
+    id: 11,
+    title: null,
+    align: 'left',
+  },
 ];
