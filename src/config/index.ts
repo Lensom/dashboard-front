@@ -34,7 +34,10 @@ export const navigation = [
   },
 ];
 
-export const API_URL = 'http://192.168.88.239:3001';
+export const API_URL =
+  process.env.REACT_APP_API_BASE_URL_LOCAL ||
+  process.env.REACT_APP_API_BASE_URL_SERVER ||
+  '';
 
 export const red = 'rgba(255, 86, 48, 0.16)';
 export const green = 'rgba(91, 228, 155, 0.2)';
