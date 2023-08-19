@@ -3,7 +3,7 @@ import Modal from '@mui/material/Modal';
 import { Typography, Box } from '@mui/material';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { IMainReducer } from 'pages/main/reducer';
+import { IMainReducer, resetStatuses } from 'pages/main/reducer';
 import {
   closeLoginModal,
   IModalsReducer,
@@ -12,6 +12,8 @@ import {
 import { IReducer } from 'reducer';
 
 import Login from 'components/Forms/Login/Login';
+
+import styles from '../modals.module.scss';
 
 const RegisterModal = () => {
   const dispatch = useDispatch();
@@ -25,6 +27,7 @@ const RegisterModal = () => {
 
   const handleClose = useCallback(() => {
     dispatch(closeLoginModal());
+    dispatch(resetStatuses());
   }, []);
 
   const handleRegistrationModal = useCallback(() => {
@@ -43,22 +46,38 @@ const RegisterModal = () => {
       <Modal
         open={isLoginOpen}
         onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-        sx={{ display: 'flex' }}
+        aria-labelledby="Login modal"
+        aria-describedby="Login modal"
+        sx={{
+          display: 'flex',
+        }}
       >
         <Box
           sx={{
-            background: 'white',
             maxWidth: '400px',
             width: '100%',
             p: 2,
             m: 'auto',
             textAlign: 'center',
+            boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.1)',
+            borderRadius: '8px',
           }}
+          className={styles['form-background']}
         >
           <Login />
-          <Typography color="primary" onClick={handleRegistrationModal}>
+          <Typography
+            color="primary"
+            onClick={handleRegistrationModal}
+            sx={{
+              fontSize: '16px',
+              color: 'rgb(0, 167, 111)',
+              '&:hover': {
+                color: 'rgb(0, 167, 111, .8)',
+              },
+              mt: 2,
+              cursor: 'pointer',
+            }}
+          >
             Don't have an account? Sign up
           </Typography>
         </Box>

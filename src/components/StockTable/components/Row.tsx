@@ -52,7 +52,7 @@ const Row = ({
             {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
           </IconButton>
         </TableCell>
-        <TableCell>{name}</TableCell>
+        <TableCell sx={{ fontWeight: 700 }}>{name}</TableCell>
         <TableCell align="center">{ticker}</TableCell>
         <TableCell align="center">{totalShares}</TableCell>
         <TableCell align="center">{avgPrice}</TableCell>
@@ -99,9 +99,9 @@ const Row = ({
                 <TableHead>
                   <TableRow>
                     <TableCell>Date</TableCell>
-                    <TableCell>Total</TableCell>
-                    <TableCell align="right">Price</TableCell>
-                    <TableCell align="right">Total price ($)</TableCell>
+                    <TableCell align="left">Total</TableCell>
+                    <TableCell align="left">Price</TableCell>
+                    <TableCell align="left">Total price ($)</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
@@ -109,9 +109,9 @@ const Row = ({
                     buyHistory.map(({ date, count, price }: any) => (
                       <TableRow key={date + price}>
                         <TableCell scope="row">{formatDate(date)}</TableCell>
-                        <TableCell>{count}</TableCell>
-                        <TableCell align="right">{price}</TableCell>
-                        <TableCell align="right">{price * count}</TableCell>
+                        <TableCell align="left">{count}</TableCell>
+                        <TableCell align="left">{price}</TableCell>
+                        <TableCell align="left">{price * count}</TableCell>
                       </TableRow>
                     ))}
                 </TableBody>

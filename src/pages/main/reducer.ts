@@ -1,5 +1,11 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
+interface ErrorInfo {
+  error: string;
+  message: string;
+  statusCode: number;
+}
+
 export interface IUserInfo {
   email: string;
   username: string;
@@ -12,6 +18,7 @@ export interface IMainReducer {
     isAuth: boolean;
     loading: boolean;
     info: IUserInfo;
+    errorMessage: string;
   };
 }
 
@@ -25,6 +32,7 @@ const initialState: IMainReducer = {
       _id: '',
       token: '',
     },
+    errorMessage: '',
   },
 };
 
@@ -40,9 +48,10 @@ const mainSlice = createSlice({
       state.user.loading = false;
       state.user.info = action.payload;
     },
-    registrationError: (state) => {
+    registrationError: (state, action: PayloadAction<ErrorInfo>) => {
       state.user.isAuth = false;
       state.user.loading = false;
+      state.user.errorMessage = action.payload.message;
     },
     fetchUserInfoRequest: (state) => {
       state.user.loading = true;
@@ -70,9 +79,13 @@ const mainSlice = createSlice({
       state.user.loading = false;
       state.user.info = action.payload;
     },
-    loginError: (state) => {
+    loginError: (state, action: PayloadAction<ErrorInfo>) => {
       state.user.isAuth = false;
       state.user.loading = false;
+      state.user.errorMessage = action.payload.message;
+    },
+    resetStatuses: (state) => {
+      state.user.errorMessage = initialState.user.errorMessage;
     },
   },
 });
@@ -82,6 +95,7 @@ export const {
   fetchUserInfoRequest,
   loginRequest,
   userLogout,
+  resetStatuses,
 } = mainSlice.actions;
 
 export const { reducer, actions } = mainSlice;
