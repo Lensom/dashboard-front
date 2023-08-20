@@ -45,7 +45,7 @@ const calculateStocksData = (stocks: Array<IStock>) => {
       .reduce((acc, item) => acc + item.currentPrice * item.totalShares, 0)
       .toFixed(2)
   );
-  const posLos = Number(((currentSum * 100) / totalSum - 100).toFixed(2));
+  const posLos = Number(((currentSum * 100) / totalSum - 100).toFixed(2)) || 0;
   const totalCount = stocks.length;
 
   return { totalSum, currentSum, posLos, totalCount };
