@@ -10,7 +10,7 @@ import Layout from 'components/Layout/Layout';
 import StatisticBlock from 'components/StatisticBlock/StatisticBlock';
 import StockTable from 'components/StockTable/StockTable';
 
-import AddButton from 'components/Buttons/AddButton/AddButton';
+import AddButton from 'components/Elements/Buttons/AddButton/AddButton';
 
 import { openAddStockModal } from 'pages/modals/reducer';
 

@@ -6,12 +6,12 @@ import {
 } from 'pages/portfolio/reducer';
 
 import CloseIcon from '@mui/icons-material/Close';
-import { TextField, Typography, Box } from '@mui/material';
+import { Typography, Box } from '@mui/material';
 import LoadingButton from '@mui/lab/LoadingButton';
 import SaveIcon from '@mui/icons-material/Save';
 import IconButton from '@mui/material/IconButton';
 
-import { Formik, Form, Field, FieldArray, ErrorMessage } from 'formik';
+import { Formik, Form, Field, FieldArray } from 'formik';
 import * as yup from 'yup';
 
 import dayjs from 'dayjs';
@@ -22,8 +22,10 @@ import 'dayjs/locale/de';
 
 import { checkIsNumber } from 'utils';
 
+import AddButton from 'components/Elements/Buttons/AddButton/AddButton';
+import FieldWrapper from 'components/Elements/FieldWrapper/FieldWrapper';
+
 import styles from './add-stock.module.scss';
-import AddButton from 'components/Buttons/AddButton/AddButton';
 
 const AddStock = () => {
   const dispatch = useDispatch();
@@ -66,24 +68,15 @@ const AddStock = () => {
         validationSchema={validationSchema}
         onSubmit={handleSubmit}
       >
-        {({ values, errors }) => (
+        {({ values }) => (
           <Form>
             <Box sx={{ flexDirection: 'column' }}>
-              <div className="field-wrapper">
-                <Field
-                  as={TextField}
-                  label="Ticker"
-                  name="ticker"
-                  required
-                  sx={{ width: '100%', mb: 3, mt: 2 }}
-                />
-                <ErrorMessage
-                  name="ticker"
-                  component="div"
-                  className="error-message"
-                />
-              </div>
-
+              <FieldWrapper
+                label="Ticker"
+                name="ticker"
+                required
+                sx={{ width: '100%', mb: 3, mt: 2 }}
+              />
               <Typography variant="h6" sx={{ mb: 1, textAlign: 'left' }}>
                 Purchase history
               </Typography>
@@ -99,20 +92,12 @@ const AddStock = () => {
                           gap: '10px',
                         }}
                       >
-                        <div className="field-wrapper">
-                          <Field
-                            as={TextField}
-                            label={`Count`}
-                            name={`purchaseHistory[${index}].count`}
-                            required
-                            sx={{ width: '165px', marginBottom: 3 }}
-                          />
-                          <ErrorMessage
-                            name={`purchaseHistory[${index}].count`}
-                            component="div"
-                            className="error-message"
-                          />
-                        </div>
+                        <FieldWrapper
+                          label={`Count`}
+                          name={`purchaseHistory[${index}].count`}
+                          required
+                          sx={{ width: '165px', marginBottom: 3 }}
+                        />
                         <div className="field-wrapper">
                           <Field name={`purchaseHistory[${index}].date`}>
                             {({ field }: any) => (
@@ -137,20 +122,12 @@ const AddStock = () => {
                             )}
                           </Field>
                         </div>
-                        <div className="field-wrapper">
-                          <Field
-                            as={TextField}
-                            label={`Price`}
-                            name={`purchaseHistory[${index}].price`}
-                            required
-                            sx={{ width: '120px', marginBottom: 3 }}
-                          />
-                          <ErrorMessage
-                            name={`purchaseHistory[${index}].price`}
-                            component="div"
-                            className="error-message"
-                          />
-                        </div>
+                        <FieldWrapper
+                          label={`Price`}
+                          name={`purchaseHistory[${index}].price`}
+                          required
+                          sx={{ width: '120px', marginBottom: 3 }}
+                        />
                         {values.purchaseHistory.length > 1 && (
                           <IconButton
                             onClick={() => remove(index)}
