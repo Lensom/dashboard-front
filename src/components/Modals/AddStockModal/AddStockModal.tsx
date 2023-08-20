@@ -37,6 +37,7 @@ const AddStockModal = () => {
             p: 2,
             m: 'auto',
             textAlign: 'center',
+            borderRadius: '8px',
           }}
         >
           <AddStock />

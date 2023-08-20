@@ -55,11 +55,23 @@ const RegisterModal = () => {
             p: 2,
             m: 'auto',
             textAlign: 'center',
+            borderRadius: '8px',
           }}
         >
           <Registration />
-          <Typography color="primary" onClick={handleLoginModal}>
-            Don you have an account? Sign in
+          <Typography
+            color="primary"
+            onClick={handleLoginModal}
+            sx={{
+              fontSize: '16px',
+              '&:hover': {
+                color: 'rgb(0, 167, 111, .8)',
+              },
+              mt: 2,
+              cursor: 'pointer',
+            }}
+          >
+            Do you have an account? Sign in
           </Typography>
         </Box>
       </Modal>

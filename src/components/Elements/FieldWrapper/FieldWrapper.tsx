@@ -5,11 +5,22 @@ import { Field, ErrorMessage } from 'formik';
 interface IProps {
   label: string;
   name: string;
-  sx: Object;
+  sx?: Object;
   required?: boolean;
+  type?: string;
+  variant?: string;
+  serverMessage?: string;
 }
 
-const FieldWrapper: FC<IProps> = ({ label, name, sx, required }) => {
+const FieldWrapper: FC<IProps> = ({
+  label,
+  name,
+  sx = { width: '100%', mb: 3 },
+  required,
+  type = 'text',
+  variant = 'outlined',
+  serverMessage,
+}) => {
   return (
     <div className="field-wrapper">
       <Field
@@ -18,8 +29,11 @@ const FieldWrapper: FC<IProps> = ({ label, name, sx, required }) => {
         name={name}
         required={required}
         sx={sx}
+        type={type}
+        variant={variant}
       />
       <ErrorMessage name={name} component="div" className="error-message" />
+      {serverMessage && <div className="error-server">{serverMessage}</div>}
     </div>
   );
 };

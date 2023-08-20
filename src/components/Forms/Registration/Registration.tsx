@@ -1,11 +1,12 @@
-import { Button, TextField, Typography } from '@mui/material';
+import { Button, Typography } from '@mui/material';
 import Box from '@mui/material/Box';
 import { useDispatch } from 'react-redux';
-import { Formik, Form, Field, ErrorMessage } from 'formik';
+import { Formik, Form } from 'formik';
 import * as yup from 'yup';
 import { registrationRequest } from 'pages/main/reducer';
 import IRegistration from './IRegistrationInterface';
-import styles from './registration.module.scss';
+
+import FieldWrapper from 'components/Elements/FieldWrapper/FieldWrapper';
 
 const Registration = () => {
   const dispatch = useDispatch();
@@ -28,8 +29,10 @@ const Registration = () => {
   });
 
   return (
-    <div className={styles.form}>
-      <Typography>Registration</Typography>
+    <div className="form">
+      <Typography variant="h5" sx={{ mb: 2 }}>
+        Registration
+      </Typography>
       <Formik
         initialValues={{
           email: '',
@@ -42,46 +45,30 @@ const Registration = () => {
       >
         <Form>
           <Box sx={{ flexDirection: 'column' }}>
-            <Field
-              as={TextField}
-              label="Username"
-              name="username"
-              required
-              sx={{ width: '100%', margin: '8px 0' }}
-            />
-            <ErrorMessage name="username" component="div" />
-
-            <Field
-              as={TextField}
-              label="Email"
-              name="email"
-              type="email"
-              required
-              sx={{ width: '100%', margin: '8px 0' }}
-            />
-            <ErrorMessage name="email" component="div" />
-
-            <Field
-              as={TextField}
+            <FieldWrapper label="Username" name="username" required />
+            <FieldWrapper label="Email" name="email" type="email" required />
+            <FieldWrapper
               label="Password"
               name="password"
               type="password"
               required
-              sx={{ width: '100%', margin: '8px 0' }}
             />
-            <ErrorMessage name="password" component="div" />
-
-            <Field
-              as={TextField}
+            <FieldWrapper
               label="Repeat Password"
               name="repeatPassword"
               type="password"
               required
-              sx={{ width: '100%', margin: '8px 0' }}
             />
-            <ErrorMessage name="repeatPassword" component="div" />
           </Box>
-          <Button type="submit" variant="contained" color="primary">
+          <Button
+            type="submit"
+            variant="contained"
+            sx={{
+              '&:hover': {
+                bgcolor: 'rgb(0, 167, 111, .8)',
+              },
+            }}
+          >
             Register
           </Button>
         </Form>

@@ -1,6 +1,6 @@
-import { Button, TextField, Typography } from '@mui/material';
+import { Button, Typography } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
-import { Formik, Form, Field, ErrorMessage } from 'formik';
+import { Formik, Form } from 'formik';
 import * as yup from 'yup';
 import { loginRequest } from 'pages/main/reducer';
 import { IReducer } from 'reducer';
@@ -8,8 +8,9 @@ import { IMainReducer } from 'pages/main/reducer';
 
 import Box from '@mui/material/Box';
 
+import FieldWrapper from 'components/Elements/FieldWrapper/FieldWrapper';
+
 import ILogin from './ILoginInterface';
-import styles from './login.module.scss';
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -31,7 +32,7 @@ const Login = () => {
   });
 
   return (
-    <div className={styles.form}>
+    <div className="form">
       <Box
         sx={{
           display: 'flex',
@@ -39,7 +40,7 @@ const Login = () => {
           alignItems: 'center',
         }}
       >
-        <Typography variant="h5" sx={{ marginBottom: '16px' }}>
+        <Typography variant="h5" sx={{ mb: 2 }}>
           Login
         </Typography>
         <Formik
@@ -50,54 +51,26 @@ const Login = () => {
           validationSchema={validationSchema}
           onSubmit={handleSubmit}
         >
-          <Form className={styles.form}>
-            <div className="field-wrapper">
-              <Field
-                as={TextField}
-                label="Email"
-                name="email"
-                type="email"
-                required
-                variant="outlined"
-                sx={{ width: '100%', marginBottom: 3 }}
-              />
-              <ErrorMessage
-                name="email"
-                component="div"
-                className="error-message"
-              />
-            </div>
-
-            <div className="field-wrapper">
-              <Field
-                as={TextField}
-                label="Password"
-                name="password"
-                type="password"
-                required
-                variant="outlined"
-                sx={{ width: '100%', marginBottom: 3 }}
-                InputProps={{
-                  classes: {
-                    focused: 'focused-input',
-                  },
-                }}
-              />
-              <ErrorMessage
-                name="password"
-                component="div"
-                className="error-message"
-              />
-              {errorMessage && (
-                <div className="error-server">{errorMessage}</div>
-              )}
-            </div>
-
+          <Form>
+            <FieldWrapper
+              label="Email"
+              name="email"
+              type="email"
+              required
+              variant="outlined"
+            />
+            <FieldWrapper
+              label="Password"
+              name="password"
+              type="password"
+              required
+              variant="outlined"
+              serverMessage={errorMessage}
+            />
             <Button
               type="submit"
               variant="contained"
               sx={{
-                bgcolor: 'rgb(0, 167, 111)',
                 '&:hover': {
                   bgcolor: 'rgb(0, 167, 111, .8)',
                 },

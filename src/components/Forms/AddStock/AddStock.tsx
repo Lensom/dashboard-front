@@ -25,8 +25,6 @@ import { checkIsNumber } from 'utils';
 import AddButton from 'components/Elements/Buttons/AddButton/AddButton';
 import FieldWrapper from 'components/Elements/FieldWrapper/FieldWrapper';
 
-import styles from './add-stock.module.scss';
-
 const AddStock = () => {
   const dispatch = useDispatch();
 
@@ -56,7 +54,7 @@ const AddStock = () => {
   };
 
   return (
-    <div className={styles.form}>
+    <div className="form">
       <Typography variant="h5" sx={{ marginBottom: '16px' }}>
         Add stock to Portfolio
       </Typography>
@@ -82,7 +80,7 @@ const AddStock = () => {
               </Typography>
               <FieldArray name="purchaseHistory">
                 {({ push, remove }) => (
-                  <Box>
+                  <>
                     {values.purchaseHistory.map((_, index) => (
                       <Box
                         key={index}
@@ -143,7 +141,7 @@ const AddStock = () => {
                         push({ count: '', date: dayjs(new Date()), price: '' })
                       }
                     />
-                  </Box>
+                  </>
                 )}
               </FieldArray>
             </Box>
