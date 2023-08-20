@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchPortfolioRequest } from './reducer';
 import { IPortfolioReducer } from 'pages/portfolio/reducer';
 import { IReducer } from 'reducer';
+import { IMainReducer } from 'pages/main/reducer';
 
 import Box from '@mui/material/Box/Box';
 
@@ -22,6 +23,10 @@ const Portfolio = () => {
   const dispatch = useDispatch();
 
   const {
+    user: { isAuth },
+  } = useSelector<IReducer, IMainReducer>((state) => state.main);
+
+  const {
     stocks: { items, totalCount, posLos, currentSum },
   } = useSelector<IReducer, IPortfolioReducer>((state) => state.portfolio);
 
@@ -30,8 +35,8 @@ const Portfolio = () => {
   };
 
   useEffect(() => {
-    dispatch(fetchPortfolioRequest());
-  }, []);
+    if (isAuth) dispatch(fetchPortfolioRequest());
+  }, [isAuth]);
 
   const stocksInfo = useMemo(
     () => [

@@ -9,7 +9,6 @@ import { Link } from 'react-router-dom';
 import { Popover, Paper, Box, Typography, Divider, Stack } from '@mui/material';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import IconButton from '@mui/material/IconButton';
-import { MenuItem } from '@mui/material';
 
 import { StyledMenuItem } from './styled';
 

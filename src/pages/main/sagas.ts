@@ -1,10 +1,10 @@
-import { takeLatest } from 'redux-saga/effects';
+import { takeLatest, put } from 'redux-saga/effects';
 import Cookies from 'js-cookie';
 import { IUserInfo } from './reducer';
-
 import * as API from 'services';
 import { requestMiddleware } from 'utils';
 import { actions } from './reducer';
+import { logoutEffects } from 'pages/portfolio/reducer';
 
 interface IMiddleware {
   req: any;
@@ -20,6 +20,7 @@ function* postSuccessEffect(responseSuccess: IUserInfo) {
 }
 
 function* logoutEffect() {
+  yield put(logoutEffects());
   yield Cookies.remove('dashboardAccessToken');
 }
 

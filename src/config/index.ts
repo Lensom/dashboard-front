@@ -25,6 +25,18 @@ export const navigation = [
     url: '/portfolio',
     name: 'Portfolio',
     Icon: ShowChartIcon,
+    subItems: [
+      {
+        id: 10,
+        subUrl: '/portfolio/overview',
+        subName: 'Overview',
+      },
+      {
+        id: 11,
+        subUrl: '/portfolio/stats',
+        subName: 'Stats',
+      },
+    ],
   },
   {
     id: 3,

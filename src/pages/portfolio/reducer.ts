@@ -34,7 +34,7 @@ const initialState: IPortfolioReducer = {
     currentSum: 0,
     posLos: 0,
   },
-  loadingStock: true,
+  loadingStock: false,
   loadingAddStock: false,
 };
 
@@ -91,6 +91,9 @@ const Portfolio = createSlice({
     removeStockError: (state) => {
       state.loadingStock = false;
     },
+    logoutEffects: (state) => {
+      state.stocks = initialState.stocks;
+    },
   },
 });
 
@@ -98,6 +101,7 @@ export const {
   fetchPortfolioRequest,
   addStockToPortfolioRequest,
   removeStockRequest,
+  logoutEffects,
 } = Portfolio.actions;
 
 export const { reducer, actions } = Portfolio;
