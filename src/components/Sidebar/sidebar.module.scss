@@ -10,10 +10,29 @@
   transition: all .3s ease;
   text-decoration: none;
   align-items: center;
-  padding: 4px 8px;
-  margin: 8px 12px;
+  padding: 8px 20px;
+  cursor: pointer;
 
   &:hover {
-    background: rgba(0, 0, 0, 0.04);
+    background: rgba($gray, .2);
+  }
+
+  path {
+    transition: all .3s ease;
+  }
+
+  &.active {
+    color: $green-main;
+    background: $green-back;
+
+    path {
+      color: $green-main;
+    }
+  }
+}
+
+.list {
+  .link {
+    margin: 0;
   }
 }

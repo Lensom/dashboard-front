@@ -1,22 +1,33 @@
+import { FC } from 'react';
 import List from '@mui/material/List';
-import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 
 import { navigation } from 'config';
 
 import Link from './Link';
 
-const Navigation = () => (
-  <Box>
+interface IProps {
+  open: boolean;
+}
+
+const Navigation: FC<IProps> = ({ open }) => {
+  return (
     <Paper elevation={0}>
-      <List aria-label="main mailbox folders">
+      <List aria-label="Main navigation menu">
         {navigation &&
-          navigation.map(({ id, url, name, Icon }) => (
-            <Link key={id} to={url} primary={name} icon={<Icon />} />
+          navigation.map(({ id, url, name, Icon, subItems }) => (
+            <Link
+              key={id}
+              to={url}
+              primary={name}
+              icon={<Icon />}
+              subItems={subItems ? subItems : null}
+              isMenuOpen={open}
+            />
           ))}
       </List>
     </Paper>
-  </Box>
-);
+  );
+};
 
 export default Navigation;

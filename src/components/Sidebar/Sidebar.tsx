@@ -29,7 +29,7 @@ const Sidebar: FC<IProps> = ({ open, setOpen }) => {
           </IconButton>
         )}
       </DrawerHeader>
-      <Navigation />
+      <Navigation open={open} />
       <Divider />
     </Drawer>
   );

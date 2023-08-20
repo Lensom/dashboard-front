@@ -2,6 +2,8 @@ import CreditCardIcon from '@mui/icons-material/CreditCard';
 import HomeIcon from '@mui/icons-material/Home';
 import SavingsIcon from '@mui/icons-material/Savings';
 import ShowChartIcon from '@mui/icons-material/ShowChart';
+import InventoryIcon from '@mui/icons-material/Inventory';
+import LibraryAddIcon from '@mui/icons-material/LibraryAdd';
 
 export * from './stocks';
 
@@ -28,13 +30,15 @@ export const navigation = [
     subItems: [
       {
         id: 10,
-        subUrl: '/portfolio/overview',
-        subName: 'Overview',
+        url: '/portfolio/overview',
+        name: 'Overview',
+        Icon: InventoryIcon,
       },
       {
         id: 11,
-        subUrl: '/portfolio/stats',
-        subName: 'Stats',
+        url: '/portfolio/wishlist',
+        name: 'Wishlist',
+        Icon: LibraryAddIcon,
       },
     ],
   },
