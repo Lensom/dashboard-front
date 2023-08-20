@@ -25,7 +25,7 @@ export interface IRowData {
   profitLossProcent: number;
   totalCost: number;
   currentCost: number;
-  buyHistory: Array<string>;
+  purchaseHistory: Array<string>;
 }
 
 const StockTable = ({ items }: any) => {

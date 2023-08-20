@@ -32,7 +32,7 @@ const Row = ({
   profitLossProcent,
   totalCost,
   currentCost,
-  buyHistory,
+  purchaseHistory,
 }: IRowData) => {
   const [open, setOpen] = useState<boolean>(false);
 
@@ -112,8 +112,8 @@ const Row = ({
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {buyHistory &&
-                    buyHistory.map(({ date, count, price }: any) => (
+                  {purchaseHistory &&
+                    purchaseHistory.map(({ date, count, price }: any) => (
                       <TableRow key={date + price}>
                         <TableCell scope="row">{formatDate(date)}</TableCell>
                         <TableCell align="left">{count}</TableCell>

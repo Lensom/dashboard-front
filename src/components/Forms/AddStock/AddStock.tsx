@@ -1,14 +1,12 @@
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { IReducer } from 'reducer';
-import { useSelector } from 'react-redux';
 import {
   IPortfolioReducer,
   addStockToPortfolioRequest,
 } from 'pages/portfolio/reducer';
 
 import CloseIcon from '@mui/icons-material/Close';
-import { Button, TextField, Typography } from '@mui/material';
-import Box from '@mui/material/Box';
+import { TextField, Typography, Box } from '@mui/material';
 import LoadingButton from '@mui/lab/LoadingButton';
 import SaveIcon from '@mui/icons-material/Save';
 import IconButton from '@mui/material/IconButton';
@@ -16,61 +14,83 @@ import IconButton from '@mui/material/IconButton';
 import { Formik, Form, Field, FieldArray, ErrorMessage } from 'formik';
 import * as yup from 'yup';
 
+import dayjs from 'dayjs';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import 'dayjs/locale/de';
 
+import { checkIsNumber } from 'utils';
+
 import styles from './add-stock.module.scss';
+import AddButton from 'components/Buttons/AddButton/AddButton';
 
 const AddStock = () => {
   const dispatch = useDispatch();
-  const handleSubmit = (data: any) => {
-    dispatch(addStockToPortfolioRequest(data));
-  };
 
-  const { loadingStock } = useSelector<IReducer, IPortfolioReducer>(
+  const { loadingAddStock } = useSelector<IReducer, IPortfolioReducer>(
     (state) => state.portfolio
   );
 
   const validationSchema = yup.object().shape({
     ticker: yup.string().required('Ticker is required'),
-    buyHistory: yup.array().of(
+    purchaseHistory: yup.array().of(
       yup.object().shape({
-        count: yup.number().required('Count is required'),
+        count: yup
+          .mixed()
+          .test('is-valid-number', 'Count is a number', checkIsNumber)
+          .required('Count is required'),
         date: yup.string().required('Date is required'),
-        price: yup.string().required('Price is required'),
+        price: yup
+          .mixed()
+          .test('is-valid-number', 'Price is a number', checkIsNumber)
+          .required('Price is required'),
       })
     ),
   });
 
+  const handleSubmit = (data: any) => {
+    dispatch(addStockToPortfolioRequest(data));
+  };
+
   return (
     <div className={styles.form}>
-      <Typography>Add stock to Portfolio</Typography>
+      <Typography variant="h5" sx={{ marginBottom: '16px' }}>
+        Add stock to Portfolio
+      </Typography>
       <Formik
         initialValues={{
           ticker: '',
-          buyHistory: [{ count: '', date: '20.12.2222', price: '' }],
+          purchaseHistory: [{ count: '', date: dayjs(new Date()), price: '' }],
         }}
         validationSchema={validationSchema}
         onSubmit={handleSubmit}
       >
-        {({ values }) => (
+        {({ values, errors }) => (
           <Form>
             <Box sx={{ flexDirection: 'column' }}>
-              <Field
-                as={TextField}
-                label="Ticker"
-                name="ticker"
-                required
-                sx={{ width: '100%', margin: '8px 0' }}
-              />
-              <ErrorMessage name="ticker" component="div" />
+              <div className="field-wrapper">
+                <Field
+                  as={TextField}
+                  label="Ticker"
+                  name="ticker"
+                  required
+                  sx={{ width: '100%', mb: 3, mt: 2 }}
+                />
+                <ErrorMessage
+                  name="ticker"
+                  component="div"
+                  className="error-message"
+                />
+              </div>
 
-              <FieldArray name="buyHistory">
+              <Typography variant="h6" sx={{ mb: 1, textAlign: 'left' }}>
+                Purchase history
+              </Typography>
+              <FieldArray name="purchaseHistory">
                 {({ push, remove }) => (
                   <Box>
-                    {values.buyHistory.map((_, index) => (
+                    {values.purchaseHistory.map((_, index) => (
                       <Box
                         key={index}
                         sx={{
@@ -79,62 +99,80 @@ const AddStock = () => {
                           gap: '10px',
                         }}
                       >
-                        <Field
-                          as={TextField}
-                          label={`Count`}
-                          name={`buyHistory[${index}].count`}
-                          required
-                          sx={{ width: '200px', margin: '8px 0' }}
-                        />
-                        <Field name={`buyHistory[${index}].date`}>
-                          {({ field }: any) => (
-                            <LocalizationProvider
-                              dateAdapter={AdapterDayjs}
-                              adapterLocale="de"
-                            >
-                              <DatePicker
-                                label={`Date`}
-                                value={field.value}
-                                onChange={(newValue) =>
-                                  field.onChange({
-                                    target: {
-                                      name: field.name,
-                                      value: newValue,
-                                    },
-                                  })
-                                }
-                              />
-                            </LocalizationProvider>
-                          )}
-                        </Field>
-                        <Field
-                          as={TextField}
-                          label={`Price`}
-                          name={`buyHistory[${index}].price`}
-                          required
-                          sx={{ width: '200px', margin: '8px 0' }}
-                        />
-                        <IconButton onClick={() => remove(index)}>
-                          <CloseIcon />
-                        </IconButton>
+                        <div className="field-wrapper">
+                          <Field
+                            as={TextField}
+                            label={`Count`}
+                            name={`purchaseHistory[${index}].count`}
+                            required
+                            sx={{ width: '165px', marginBottom: 3 }}
+                          />
+                          <ErrorMessage
+                            name={`purchaseHistory[${index}].count`}
+                            component="div"
+                            className="error-message"
+                          />
+                        </div>
+                        <div className="field-wrapper">
+                          <Field name={`purchaseHistory[${index}].date`}>
+                            {({ field }: any) => (
+                              <LocalizationProvider
+                                dateAdapter={AdapterDayjs}
+                                adapterLocale="de"
+                              >
+                                <DatePicker
+                                  sx={{ marginBottom: 3 }}
+                                  label={`Date`}
+                                  value={field.value}
+                                  onChange={(newValue) =>
+                                    field.onChange({
+                                      target: {
+                                        name: field.name,
+                                        value: newValue,
+                                      },
+                                    })
+                                  }
+                                />
+                              </LocalizationProvider>
+                            )}
+                          </Field>
+                        </div>
+                        <div className="field-wrapper">
+                          <Field
+                            as={TextField}
+                            label={`Price`}
+                            name={`purchaseHistory[${index}].price`}
+                            required
+                            sx={{ width: '120px', marginBottom: 3 }}
+                          />
+                          <ErrorMessage
+                            name={`purchaseHistory[${index}].price`}
+                            component="div"
+                            className="error-message"
+                          />
+                        </div>
+                        {values.purchaseHistory.length > 1 && (
+                          <IconButton
+                            onClick={() => remove(index)}
+                            sx={{ mb: 3 }}
+                          >
+                            <CloseIcon />
+                          </IconButton>
+                        )}
                       </Box>
                     ))}
-                    <Button
-                      type="button"
-                      variant="contained"
-                      color="primary"
-                      sx={{ m: 2 }}
-                      onClick={() => push({ count: '', date: '', price: '' })}
-                    >
-                      Add More
-                    </Button>
+                    <AddButton
+                      onClick={() =>
+                        push({ count: '', date: dayjs(new Date()), price: '' })
+                      }
+                    />
                   </Box>
                 )}
               </FieldArray>
             </Box>
             <LoadingButton
               type="submit"
-              loading={loadingStock}
+              loading={loadingAddStock}
               loadingPosition="start"
               startIcon={<SaveIcon />}
               variant="contained"

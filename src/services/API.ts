@@ -14,8 +14,8 @@ const providerInfo: { provider: Provider | null } = {
 };
 
 const API_URL =
-  process.env.REACT_APP_API_BASE_URL_LOCAL ||
   process.env.REACT_APP_API_BASE_URL_SERVER ||
+  process.env.REACT_APP_API_BASE_URL_LOCAL ||
   '';
 
 export default function ApiProvider(ssrToken?: string, locale?: string): any {

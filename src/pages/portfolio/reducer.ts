@@ -24,6 +24,7 @@ export interface IPortfolioReducer {
     posLos: number;
   };
   loadingStock: boolean;
+  loadingAddStock: boolean;
 }
 const initialState: IPortfolioReducer = {
   stocks: {
@@ -34,6 +35,7 @@ const initialState: IPortfolioReducer = {
     posLos: 0,
   },
   loadingStock: true,
+  loadingAddStock: false,
 };
 
 const calculateStocksData = (stocks: Array<IStock>) => {
@@ -66,16 +68,16 @@ const Portfolio = createSlice({
       state.loadingStock = false;
     },
     addStockToPortfolioRequest: (state) => {
-      state.loadingStock = true;
+      state.loadingAddStock = true;
     },
     addStockToPortfolioSuccess: (state, action: PayloadAction<IStock[]>) => {
-      state.loadingStock = false;
+      state.loadingAddStock = false;
       state.stocks.items = action.payload;
       const stocksData = calculateStocksData(state.stocks.items);
       Object.assign(state.stocks, stocksData);
     },
     addStockToPortfolioError: (state) => {
-      state.loadingStock = false;
+      state.loadingAddStock = false;
     },
     removeStockRequest: (state) => {
       state.loadingStock = true;
