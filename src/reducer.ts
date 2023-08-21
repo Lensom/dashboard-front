@@ -7,9 +7,9 @@ import {
 import {
   reducer as portfolioReducer,
   IPortfolioReducer,
-} from './pages/portfolio/reducer';
+} from './pages/portfolio/overview/reducer';
 import MainSaga from './pages/main/sagas';
-import PortfolioSaga from './pages/portfolio/saga';
+import PortfolioSaga from './pages/portfolio/overview/saga';
 
 import { all } from 'redux-saga/effects';
 

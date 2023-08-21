@@ -3,7 +3,7 @@ import { IReducer } from 'reducer';
 import {
   IPortfolioReducer,
   addStockToPortfolioRequest,
-} from 'pages/portfolio/reducer';
+} from 'pages/portfolio/overview/reducer';
 
 import CloseIcon from '@mui/icons-material/Close';
 import { Typography, Box } from '@mui/material';

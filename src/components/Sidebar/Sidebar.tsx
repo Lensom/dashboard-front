@@ -1,4 +1,5 @@
 import { useCallback } from 'react';
+import cn from 'classnames';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { IModalsReducer, closeSidebarkModal } from 'pages/modals/reducer';
@@ -12,7 +13,9 @@ import DrawerHeader from 'components/Header/components/DrawerHeader';
 import Navigation from './components/Navigation';
 import Drawer from './components/Drawer';
 
-// import Logotype from 'images/icons/logotype.svg';
+import styles from './sidebar.module.scss';
+
+import logotypeImg from 'assets/images/logotype.png';
 
 const Sidebar = () => {
   const dispatch = useDispatch();
@@ -27,7 +30,11 @@ const Sidebar = () => {
   return (
     <Drawer variant="permanent" open={isSidebarOpen}>
       <DrawerHeader sx={{ display: 'flex', justifyContent: 'space-between' }}>
-        {/* <Logotype /> */}
+        <img
+          src={logotypeImg}
+          className={cn(styles.logotype, { [styles.hidden]: !isSidebarOpen })}
+          alt="Dashboard website"
+        />
         {isSidebarOpen && (
           <IconButton onClick={handleDrawerClose}>
             <ChevronLeftIcon />

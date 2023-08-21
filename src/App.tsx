@@ -13,14 +13,14 @@ import Cookies from 'js-cookie';
 
 import MainPage from 'pages/main';
 import Dashboard from 'pages/dashboard';
-import Portfolio from 'pages/portfolio';
+import PortfolioOverview from 'pages/portfolio/overview';
 import Savings from 'pages/savings';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route>
       <Route path="/" element={<MainPage />} />
-      <Route path="/portfolio" element={<Portfolio />} />
+      <Route path="/portfolio/overview" element={<PortfolioOverview />} />
       <Route path="/dashboard" element={<Dashboard />} />
       <Route path="/savings" element={<Savings />} />
     </Route>

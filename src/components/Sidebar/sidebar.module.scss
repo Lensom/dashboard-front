@@ -36,3 +36,13 @@
     margin: 0;
   }
 }
+
+.logotype {
+  width: 100px;
+  margin: auto;
+  transition: all .3s ease;
+
+  &.hidden {
+    width: 0;
+  }
+}

@@ -1,7 +1,7 @@
 import { useEffect, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchPortfolioRequest } from './reducer';
-import { IPortfolioReducer } from 'pages/portfolio/reducer';
+import { IPortfolioReducer } from 'pages/portfolio/overview/reducer';
 import { IReducer } from 'reducer';
 import { IMainReducer } from 'pages/main/reducer';
 

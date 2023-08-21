@@ -15,7 +15,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import ModeEditIcon from '@mui/icons-material/ModeEdit';
 
 import { useDispatch } from 'react-redux';
-import { removeStockRequest } from 'pages/portfolio/reducer';
+import { removeStockRequest } from 'pages/portfolio/overview/reducer';
 
 import { red, green, cells } from 'config';
 import { formatDate } from 'utils';

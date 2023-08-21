@@ -4,7 +4,7 @@ import { IUserInfo } from './reducer';
 import * as API from 'services';
 import { requestMiddleware } from 'utils';
 import { actions } from './reducer';
-import { logoutEffects } from 'pages/portfolio/reducer';
+import { logoutEffects } from 'pages/portfolio/overview/reducer';
 
 interface IMiddleware {
   req: any;
