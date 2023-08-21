@@ -1,9 +1,8 @@
-import { useEffect, useCallback } from 'react';
+import { useCallback } from 'react';
 import Modal from '@mui/material/Modal';
-import { Typography, Box } from '@mui/material';
+import { Box } from '@mui/material';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { IMainReducer } from 'pages/main/reducer';
 import { closeAddStockModal, IModalsReducer } from 'pages/modals/reducer';
 import { IReducer } from 'reducer';
 

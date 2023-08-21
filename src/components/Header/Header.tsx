@@ -1,7 +1,10 @@
-import { FC, useCallback } from 'react';
+import { useCallback } from 'react';
 import cn from 'classnames';
 import SearchIcon from '@mui/icons-material/Search';
 import Box from '@mui/material/Box';
+import { useDispatch, useSelector } from 'react-redux';
+import { IModalsReducer, openSidebarkModal } from 'pages/modals/reducer';
+import { IReducer } from 'reducer';
 
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
@@ -12,26 +15,26 @@ import BasicMenu from '../Menu/Menu';
 
 import styles from './header.module.scss';
 
-interface IProps {
-  open: boolean;
-  setOpen: (bool: boolean) => void;
-}
+const Header = () => {
+  const dispatch = useDispatch();
+  const {
+    modals: { isSidebarOpen },
+  } = useSelector<IReducer, IModalsReducer>((state) => state.modals);
 
-const Header: FC<IProps> = ({ open, setOpen }) => {
   const handleDrawerOpen = useCallback(() => {
-    setOpen(true);
-  }, [setOpen]);
+    dispatch(openSidebarkModal());
+  }, []);
 
   return (
-    <AppBar position="fixed" open={open}>
+    <AppBar position="fixed" open={isSidebarOpen}>
       <Toolbar>
-        {!open && (
+        {!isSidebarOpen && (
           <IconButton
             color="inherit"
             aria-label="open drawer"
             onClick={handleDrawerOpen}
             edge="start"
-            className={cn(styles.icon, { [styles.closed]: open })}
+            className={cn(styles.icon, { [styles.closed]: isSidebarOpen })}
           >
             <MenuIcon className={styles.menu} />
           </IconButton>
@@ -40,7 +43,7 @@ const Header: FC<IProps> = ({ open, setOpen }) => {
         <Box className={styles.top}>
           <IconButton>
             <SearchIcon
-              className={cn(styles.search, { [styles.opened]: !open })}
+              className={cn(styles.search, { [styles.opened]: !isSidebarOpen })}
             />
           </IconButton>
           <Box>

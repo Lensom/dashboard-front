@@ -1,4 +1,4 @@
-import { ReactNode, FC, useState } from 'react';
+import { ReactNode, FC } from 'react';
 
 import Box from '@mui/material/Box';
 
@@ -16,22 +16,18 @@ interface IProps {
   children: ReactNode;
 }
 
-const Layout: FC<IProps> = ({ children }) => {
-  const [open, setOpen] = useState<boolean>(true);
-
-  return (
-    <Box className={styles.box}>
-      <Header open={open} setOpen={setOpen} />
-      <Sidebar open={open} setOpen={setOpen} />
-      <Box component="main" className={styles.main}>
-        <DrawerHeader />
-        {children}
-      </Box>
-      <RegisterModal />
-      <LoginModal />
-      <AddStockModal />
+const Layout: FC<IProps> = ({ children }) => (
+  <Box className={styles.box}>
+    <Header />
+    <Sidebar />
+    <Box component="main" className={styles.main}>
+      <DrawerHeader />
+      {children}
     </Box>
-  );
-};
+    <RegisterModal />
+    <LoginModal />
+    <AddStockModal />
+  </Box>
+);
 
 export default Layout;

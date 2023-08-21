@@ -1,4 +1,9 @@
-import { FC, useCallback } from 'react';
+import { useCallback } from 'react';
+
+import { useDispatch, useSelector } from 'react-redux';
+import { IModalsReducer, closeSidebarkModal } from 'pages/modals/reducer';
+import { IReducer } from 'reducer';
+
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
@@ -9,27 +14,27 @@ import Drawer from './components/Drawer';
 
 // import Logotype from 'images/icons/logotype.svg';
 
-interface IProps {
-  open: boolean;
-  setOpen: (bool: boolean) => void;
-}
+const Sidebar = () => {
+  const dispatch = useDispatch();
+  const {
+    modals: { isSidebarOpen },
+  } = useSelector<IReducer, IModalsReducer>((state) => state.modals);
 
-const Sidebar: FC<IProps> = ({ open, setOpen }) => {
   const handleDrawerClose = useCallback(() => {
-    setOpen(false);
-  }, [setOpen]);
+    dispatch(closeSidebarkModal());
+  }, []);
 
   return (
-    <Drawer variant="permanent" open={open}>
+    <Drawer variant="permanent" open={isSidebarOpen}>
       <DrawerHeader sx={{ display: 'flex', justifyContent: 'space-between' }}>
         {/* <Logotype /> */}
-        {open && (
+        {isSidebarOpen && (
           <IconButton onClick={handleDrawerClose}>
             <ChevronLeftIcon />
           </IconButton>
         )}
       </DrawerHeader>
-      <Navigation open={open} />
+      <Navigation open={isSidebarOpen} />
       <Divider />
     </Drawer>
   );
